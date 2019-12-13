@@ -1,4 +1,4 @@
-# Chess strong movies extractor
+# Chess strong moves extractor
 [Page reference](http://www.cs.put.poznan.pl/mszelag/Teaching/teaching.html)
 
 ## Requirements
@@ -7,4 +7,4 @@
 
 ## How to build executable jar?
 You need to execute fat jar build task with gradle - `./gradlew shadowJar` in main project dir.
-Result will lend in `build/libs` and be named like `ChessStrongMoviesExtractor-<version>-all.jar`.
+Result will lend in `build/libs` and be named like `ChessStrongMovesExtractor-<version>-all.jar`.
