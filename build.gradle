@@ -1,0 +1,44 @@
+
+buildscript {
+    ext {
+        junit5_version = "5.1.0"
+        junit5_plugin_version = "1.1.0"
+    }
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit5_plugin_version"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group 'pl.poznan.put'
+version '1.0'
+
+mainClassName = "pl.poznan.put.omw.Main"
+
+sourceCompatibility = 1.13
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter-api:$junit5_version",
+            "org.junit.jupiter:junit-jupiter-params:$junit5_version"
+    )
+    testRuntimeOnly(
+            "org.junit.jupiter:junit-jupiter-engine:$junit5_version",
+            "org.junit.platform:junit-platform-launcher:$junit5_plugin_version",
+            "org.junit.platform:junit-platform-runner:$junit5_plugin_version",
+    )
+}
