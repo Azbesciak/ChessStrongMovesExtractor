@@ -1,0 +1,460 @@
+[Event "Czech Open GMA"]
+[Site "Pardubice CZE"]
+[Date "2007.07.22"]
+[Round "3"]
+[White "Kuznetsov, Vi2"]
+[Black "Gajewski, G."]
+[Result "0-1"]
+[ECO "C96"]
+[WhiteElo "2448"]
+[BlackElo "2556"]
+[Annotator "Maxim Notkin (www.chesstoday.net)"]
+[Source "Chess Today"]
+[Remark ""]
+
+{In many respects the following game is incredible. Skip the  first 10 moves and look at the diagram please.}
+1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 Nf6 5.O-O Be7 6.Re1 b5 7.Bb3
+d6 8.c3 O-O 9.h3 Na5 10.Bc2 {#  You see the position played to tatters and smudges. Black's next move is shocking.}
+d5 {!? At first glance I didn't believe my eyes and examined the situation more
+thoroughly - is it really the well-known "tabiya" of the Classical Chigorin
+Variation? Yes it is. Then how can someon dares to play something other than
+10...c5? And what's the point of this "Marshall Counter Attack Delayed" or
+"ChigoMarsh" or what is its name? But when I looked at the position after move
+15 my amazement increased and changed the key. Instead of  a solid and slightly
+cramped set-up Black managed to obtain lively play with his f-pawn hanging
+around in the vicinity of the white king. Not bad at all! Why did I suffer for
+so many years in the Ruy Lopez?! Perhaps it is someone's old dodgy idea... I
+clicked "Search"... Then came another great surprise: nobody - has ever - tried
+- this - before! To complete my perplexity Uncle Fritz didn't show any clear
+sign of disrespect evaluating the position after three most reasonable White's replies as roughly equal. Incredible!}
+11.exd5 {The most principled continuation.} ( 11.Nxe5 dxe4 )
+( 11.d4 Nxe4 {hardly poses Black big problems.} ) e4
+{! Suppressing excessive emotion and considering the situation soberly one may
+notice that even though the black queen's knight no longer protects the central
+pawn in return it doesn't come under attack after exd5 which enables Black to advance the e-pawn.}
+12.Ng5 ( 12.Bxe4 {!} Nxe4 13.Rxe4 Bb7 {followed by ...Bxd5 and Bd6 Black achieves a pleasant set-up with the bishop pair directed at the enemy king.}
+14.d4 ( 14.d3 Bxd5 15.Re1 $14 ) Bxd5 ( 14...Re8 15.Bf4 Nc4 16.b3
+Nb6 17.Bg3 ( 17.c4 bxc4 18.bxc4 Nxc4 19.Nc3 Nb6 20.Qb3 Rb8 )
+Nxd5 18.Qd3 f5 19.Re1 f4 20.Bh2 c5 21.a4 ) 15.Re1 Bd6 16.Nbd2
+Re8 17.Rxe8+ Qxe8 18.Nf1 ( 18.b3 ) Nc4 19.b3 Nb6 20.Ne3 Bb7 21.Bd2
+Qe6 22.Nh4 $14 ) Nxd5 13.Nxe4 ( 13.Nxh7 {plays into Black's hands after}
+Kxh7 14.Bxe4+ Kg8 15.Bxd5 Qxd5 16.Rxe7 Bxh3 {!} ( 16...Be6 {is also possible gaining the exchange for two pawns}
+) 17.Qf3 ( 17.gxh3 {?} Qg5+ ) Qxf3 ( 17...Qg5 $45 {deserves attention as well}
+) 18.gxf3 c5 {- it is White who should fight for equality here.} )
+f5 14.Ng3 f4 15.Ne4 ( 15.Nh5 g6 16.Be4 c6 ) f3 16.d4 {Finally White gets  an opportunity to proceed to development.}
+fxg2 ( 16...Rb8 {with idea of Rb6-g6(e6) is worth considering.} )
+17.Ng3 {Significant ly widening the scope of the light-squared bishop. De profundis White hopes to launch a kingside attack.}
+( 17.Kxg2 Bf5 {followed by ...Qd7 and Rae8 Black is fine.} )
+Qd6 ( 17...Nf6 {gives White a comfortable position after} 18.Bg5
+{when he figures out easily how to deploy his forces - the queen may go to d3,
+the knight to d2 and further on to e4, another knight to f5 etc.} )
+( 17...c5 18.Be4 Ra7 19.Bxg2 Rd7 {which indeed looks interesting} )
+( 17...g6 $15 {/} $17 {Rybka 3} 18.Kxg2 Bg5 {! xf4} ) 18.Be4
+Bb7 {In the flus h of the opening success Black oversteps the limits of safety and invites the enemy knight to hop on f5.}
+( 18...c6 ) 19.Nf5 {#} Rxf5 20.Bxf5 Rf8 {The point. In case of the bishop's retreat Black is intending to attack the f2 pawn with ...Bh4.}
+21.Re6 {White soundly tries to take over the initiative. The lines with the bishop's
+appearance at e6 would lead to incredible variations.}
+( 21.Be6+ Kh8 22.Qg4 Rxf2 {!} 23.Bh6 {!} ( 23.Kxf2 {? loses to}
+Qh2 24.Rg1 ( 24.Qxg2 Bh4+ 25.Kf1 Ne3+ ) Nf6 ) Rf1+ 24.Rxf1 gxf1Q+
+25.Kxf1 g5 {!  (defending against mate and threatening with ...Ne3+ and ...Nf4)}
+26.Bxd5 ( 26.Bxg5 Bxg5 27.Qxg5 Qxe6 ) Bxd5 27.Bxg5 Bxg5 28.Qxg5
+Nc4 29.Na3 ( 29.Nd2 {?} h6 ) Qh2 {and it will be a draw by perpetual} )
+( 21.Qg4 Qf6 22.Be6+ Kh8 23.f3 Nc4 {and White should be very alert. The correct move is}
+24.Bxd5 {! After the exchange on d5 White trades one more pair of light pieces achieving a double-edged position -}
+( 24.Nd2 Nce3 25.Qe4 Bd6 26.Bxd5 ( 26.Rxe3 Qg5 {!  (with idea ...Bh2+)}
+27.Bg4 Nxe3 28.Qxb7 Qh4 {mating} ) Qh6 {!} 27.Bxb7
+( 27.h4 Bxd5 28.Qxe3 Qxh4 $19 ) Qxh3 28.Kf2 {and now for example}
+Ng4+ 29.Ke2 {#} g1N+ {!} ( 29...g1Q 30.fxg4 {!  and curiously enough White has material advantage}
+) 30.Rxg1 Qh2+ 31.Kd1 Nf2+ 32.Kc2 Nxe4 {and Black is winning} )
+( 24.b3 Nde3 {!} 25.Bxe3 Nxe3 26.Rxe3 Qh6 {and the extra rook doesn't save White from the decisive penetration of the black queen -}
+27.Rd3 Qc1+ 28.Kxg2 Qe1 {!} ( 28...Qb2+ 29.Rd2 Qxa1 30.Bf5 )
+29.Bf5 Bd6 {!} ( 29...Qe2+ 30.Kg1 Bd6 31.Qg2 Qe1+ 32.Qf1 Qg3+ )
+30.Nd2 Qe2+ 31.Kg1 Qh2+ 32.Kf1 Bg3 {and White should give up the queen}
+) Bxd5 25.Nd2 Nxd2 26.Bxd2 Bxf3 27.Qe6 ) ( 21.Qc2 Bh4 ) Rxf5
+{!? The orgy of unlikely events doesn't stop. Black suddenly sacrifices the queen for two minor pieces.}
+( 21...Qd8 {is bad due to} 22.Qh5 Nf6 23.Rxf6 {!} Rxf6 24.Qxh7+
+Kf7 25.Bg5 {with White's crushing attack} ) ( 21...Qd7 {!?  there is a strong reply}
+22.Rf6 {!} ( 22.Qh5 {? is refuted by} Rxf5 23.Qxf5 Bc8 {!} )
+Qe8 23.Rxf8+ Bxf8 24.Bg4 Nf6 25.Qe2 {and it seems that Black's compensation is insufficient.}
+) 22.Rxd6 Bxd6 23.a4 {# A typical Marshall move but it was better not to weaken the b3 square.}
+( 23.Nd2 {?} Nf4 ) ( 23.Bd2 {?!} Nf6 ) ( 23.f3 {?!} Nxc3 {!}
+24.Nxc3 Rxf3 ) ( 23.b3 ) ( 23.Qe2 {White would have chances to convert his huge material edge.}
+) Bg3 {!} 24.f3 ( 24.fxg3 Rf1+ 25.Qxf1 gxf1Q+ 26.Kxf1 Nb3 {and thanks to the hole on b3 Black wins a piece.}
+) Bf4 25.axb5 {!} ( 25.Kxg2 Bxc1 26.Qxc1 Nb3 27.Qe1 Nxa1 {the weakness on b3 once again causes White material damage.}
+) ( 25.Bxf4 Nxf4 26.h4 {! Black has at least equality after}
+Nc4 27.Nd2 Nh3+ ( 27...Ne3 {!?} 28.Qb3+ Bd5 29.c4 {!} ) 28.Kxg2
+Ne3+ 29.Kxh3 Nxd1 30.Rxd1 Bxf3 31.Nxf3 Rxf3+ ) Bxc1 26.Rxa5 {? After all White succumbs to pressure and probably time scramble. Two serious mistakes in a row ruins his game.}
+( 26.Qxc1 Rxf3 ( 26...Nb3 {?} 27.Qc2 ) ( 26...Nf4 27.Qxf4 {!}
+Rxf4 28.bxa6 ) 27.bxa6 Ba8 {the possible continuation} 28.Rxa5
+Ne3 29.Qxe3 Rf1+ {!?} 30.Kh2 Rh1+ 31.Kg3 g1Q+ 32.Qxg1 Rxg1+ 33.Kf4
+Rxb1 {leads to a position when only Black runs the risk of losing.} )
+Nf4 {! #} ( 26...Be3+ 27.Kxg2 Rg5+ 28.Kh1 Nf4 29.Qf1 Nh5 ) 27.Qe1
+{?} ( 27.Nd2 Bxd2 28.Qxd2 Bxf3 {and after some incredible manoeuvres}
+29.Kh2 Nxh3 {!} 30.Ra1 Rh5 31.Kg3 ( 31.bxa6 Ng5+ 32.Kg3 Ne4+
+33.Kxf3 {and here the subtle} g1Q {!} 34.Rxg1 Nxd2+ 35.Ke3 Nb3
+{!  deprives the white rook of the a1 square and thus the a-passer loses support.}
+) Ng5 {!} 32.Qe3 Rh3+ 33.Kf4 h6 {Black's attack is dangerous but nothing decisive isn't seen yet.}
+) Bxf3 $19 {White is unable to hold the assault of four units.}
+28.bxa6 Nxh3+ 29.Kh2 Bf4+ 30.Kxh3 {#} g1N+ {!?} ( 30...g1Q {would also do}
+) ( 30...Rxa5 {??} 31.Qe8# ) 31.Qxg1 ( 31.Kh4 g5# ) Rxa5 {White resigned. Hats off to Grzegorz Gajewski!}
+ 0-1
+
+[Event ""]
+[Site "Ustron (Poland)"]
+[Date "2008.09.14"]
+[Round "?"]
+[White "Hiszpanska 9...Wb8"]
+[Black "Analiza"]
+[Result "*"]
+[ECO "C92"]
+[WhiteElo "0"]
+[BlackElo "0"]
+[Annotator ""]
+[Source ""]
+[Remark "Analiza"]
+
+1.e4 e5 2.Nf3 Nc6 3.Bb5 a6 4.Ba4 Nf6 5.O-O Be7 6.Re1 b5 7.Bb3
+d6 8.c3 O-O 9.h3 Rb8 10.d4 exd4 11.cxd4 d5 12.e5 Ne4 13.Nbd2
+( 13.Nc3 Nxc3 14.bxc3 Bf5 ) Bf5 14.Bc2 Nb4 15.Bxe4 {!}
+( 15.Bb1 {? !} c5 16.Nxe4 {!} ( 16.a3 {?} Nc6 17.Nxe4 Bxe4 {!}
+( 17...dxe4 {?} 18.d5 {!} exf3 19.Bxf5 Nd4 20.Be4 fxg2 21.b4
+$16 ) 18.Bxe4 dxe4 19.Rxe4 Qd5 20.Qd3 ( 20.Rg4 f5 {!} ) f5 21.exf6
+( 21.Rf4 {?} g6 $15 {'with the idea' Nd8-e6; Szelag Marcin (POL) 2477 - Malaniuk Vladimir (UKR) 2528, Krakow 2006}
+) Bxf6 22.Be3 cxd4 23.Rd1 Rbe8 {!} ( 23...Rbd8 {? !} 24.Nxd4
+{!} Nxd4 25.Bxd4 $16 Rf7 26.Qe3 Rfd7 27.Rd2 {!} Bxd4 28.Rdxd4
+Qxd4 {??} 29.Re8+ Kf7 30.Qe6# ) 24.Rf4 Qc4 25.Qb1 Qd5 {=} ) dxe4
+17.Bxe4 Bxe4 18.Rxe4 c4 $14 ( 18...Qd5 19.Qe2 Nxa2 20.e6 {!} $16 ) )
+dxe4 16.Nxe4 $14 Qd5 ( 16...Bxe4 17.Rxe4 Qd5 18.Rg4 {! 'with the idea' Bh6}
+( 18.Qe2 Nxa2 19.Bd2 Rb6 ) f5 ( 18...h5 19.Rg3 Rfd8 20.Bh6 g6
+21.a3 Nc6 22.Qc2 Kh8 23.Be3 ) 19.exf6 Bxf6 20.Bg5 $16 Nxa2 21.Bxf6
+Rxf6 22.Rg5 Qf7 23.Ne5 Qe6 24.Qg4 {!} $18 ( 24.d5 ) ) 17.Bg5
+{!} ( 17.Nc3 {?} Qc4 18.Re2 Rfd8 $45 ) Bxg5 ( 17...Bxe4 {?} 18.Bxe7
+Nc2 19.Rxe4 Nxa1 ( 19...Qxe4 20.Rc1 Rfe8 21.Bc5 $18 ) 20.Qb1
+{!!} $18 ) ( 17...Rfe8 {? !} 18.Bxe7 Rxe7 19.Nc3 ( 19.Qe2 ) Qc4
+20.Qd2 Nc2 21.Qg5 Qe6 22.Nd5 Qxd5 23.Qxe7 ) 18.Nfxg5 {'with the idea' a3}
+Rbd8 {!} ( 18...Rfd8 {? !} 19.a3 Nc6 20.Nc3 {!} Qxd4 21.Qf3 {!}
+Ne7 22.e6 fxe6 ( 22...f6 {? !} 23.Nf7 Re8 24.Rad1 Qc4 25.Nd5
+Nxd5 26.Qxf5 $16 ) 23.Nxe6 ( 23.g4 {! ?} h6 24.Rad1 Qc4 25.gxf5
+hxg5 26.fxe6 $14 ) Bxe6 24.Rxe6 $14 ) ( 18...h6 {?} 19.a3 {!}
+Nc6 ( 19...hxg5 {? !} 20.Nc3 Qc4 21.axb4 Rfd8 ( 21...Qxb4 {??}
+22.Nd5 {!} $18 {'with the idea' Ne7-xf5} ) ( 21...Rbd8 22.d5
+Qxb4 23.d6 ( 23.Qc1 ) Be6 24.Rxa6 Qxb2 25.Nd5 ) 22.d5 Qxb4
+( 22...Be6 23.Re2 ( 23.Re4 Rxd5 ) Bxd5 {??} 24.Rd2 c6 25.Rd4
+Qb3 26.Rxd5 {!} Qxd1+ 27.Rdxd1 $18 ) 23.d6 {!} $16 {'with the idea'}
+cxd6 {?} 24.Nd5 $18 {'with the idea' Ne7 xBf5} ) 20.Ng3 {!}
+( 20.Nc3 {?} Qxd4 21.Qf3 Qd7 22.Rad1 Nd4 23.Qf4 c5 ) Bg6
+( 20...Qxd4 21.Nxf5 Qxd1 22.Raxd1 hxg5 23.Rc1 $16 ) 21.Nf3 Rfd8
+22.Rc1 $14 {xc7} Nxd4 23.Nxd4 Qxd4 24.Qxd4 Rxd4 25.Rxc7 $14 Rd2
+( 25...b4 26.e6 ) 26.Re2 ) ( 18...Bxe4 {?} 19.Nxe4 Rbd8
+( 19...Nc6 {?} 20.Rc1 {! xc7; 'with the idea'} Rbd8 21.Qg4 $18 {'with the idea' Nf6; 'with the idea' Rc5}
+) 20.Qg4 {!!} ( 20.a3 Nc6 21.Qg4 {'with the idea' Nf6} Qxd4
+( 21...Kh8 22.Rad1 Nxd4 23.Ng5 h6 24.e6 {!} $16 ) 22.Nf6+ Kh8
+23.Qf5 {!} Qh4 ( 23...g6 24.Qg5 Qd2 25.Qh4 h5 26.Ne4 $16 ) 24.Re4
+Qh6 25.Nd7 Ne7 ( 25...Rfe8 {?} 26.Qxf7 {!} Re7 27.e6 {!!} $16 )
+26.Qg4 Rfe8 27.Rd1 Qe6 28.Red4 $14 Nc6 29.R4d3 {'with the idea' f4} )
+Kh8 ( 20...Qxd4 21.Nf6+ Kh8 22.Re4 Qxb2 23.Qf5 Qxa1+ 24.Kh2 g6
+25.Rh4 $18 ) 21.Nc3 $16 ) 19.a3 Nc6 20.Nc3 ( 20.Ng3 {!?} $14
+Bg6 21.Nf3 Nxd4 22.Nxd4 Qxd4 23.Qxd4 Rxd4 24.Rac1 Rd2
+( 24...Rd7 25.Rc6 a5 26.Rc5 Rb8 27.Rec1 ) 25.f4 ) Qxd4 21.Qf3
+Ne7 22.e6 {!N M. Sz.} ( 22.Rad1 {? !} Qc4 $14 {/= Spraggett Kevin (CAN) 2610 - Gajewski Grzegorz (POL) 2515, Calvia (Spain) 2006-10-28}
+23.e6 {! ?} ( 23.Rxd8 {? !} Rxd8 24.e6 f6 {!} ) f6 24.Rd7 {!}
+Rxd7 ( 24...fxg5 25.Rxe7 Qc5 26.Rxg7+ Kxg7 27.e7 ) 25.exd7 Bxd7
+26.Rxe7 fxg5 27.Qe3 Qc6 28.Qxg5 Rf7 29.Nd5 Qd6 {!}
+( 29...h6 30.Qe5 ( 30.Qh5 Be6 31.Rxf7 Qc1+ 32.Kh2 Bxf7 33.Ne7+
+Kf8 34.Qe5 g6 35.Nc8 Kg8 ) ) ) f6 {!} ( 22...fxe6 23.Rad1 Qc5
+{!} ( 23...Qf6 24.Rxd8 Rxd8 25.Nxe6 $14 {/} $16 ) ( 23...Qb6
+{?} 24.Rxd8 Rxd8 25.g4 h6 26.gxf5 hxg5 27.Rxe6 Qc5 28.f6 $16 )
+( 23...Qc4 24.Rxd8 Rxd8 25.g4 Bg6 ( 25...h6 26.gxf5 hxg5 27.Rxe6
+$16 {Rybka 2.4; xNe7; 'with the idea' f6} ) 26.Rxe6 $16 ) 24.Rxd8
+Rxd8 25.Nxe6 Bxe6 26.Rxe6 {--> 22...Bxe6} ) ( 22...Bxe6 23.Rad1
+Qc5 ( 23...Qf6 {?} 24.Qxf6 gxf6 25.Rxd8 Rxd8 26.Nxe6 fxe6 27.Rxe6
+Kf7 28.Rxa6 $16 ) ( 23...Qc4 {??} 24.Rxd8 Rxd8 25.Rxe6 {!} $18 )
+( 23...Qb6 {??} 24.Rxd8 Rxd8 25.Rxe6 {!} $18 ) 24.Rxd8 Rxd8 25.Nxe6
+( 25.Rxe6 {?} Qxg5 26.Rxa6 c6 ) fxe6 26.Rxe6 Rf8 ( 26...c6 27.b4
+Qg5 28.g3 $16 {'with the idea' Kg2, h4; xNe7, xc6} )
+( 26...a5 27.Qe2 {!} $16 ) 27.Qe3 Qxe3 28.fxe3 Nf5 29.Rxa6 Nxe3
+30.Re6 Nc4 31.Nxb5 ) 23.Nf7 Rde8 24.Rac1 $16 {! Stockfish-231-64-ja}
+( 24.Rad1 Qc4 {xe6} ( 24...Qc5 {?} 25.Rd7 ) 25.Nd5 {! xBf5} Bxe6
+( 25...Bg6 26.Nxe7+ Rxe7 27.Nd8 Rfe8 28.b3 Qc5 29.b4 Qc4 30.Re3
+$14 ) ( 25...Nxd5 {? !} 26.Qxf5 $16 ) 26.Nh6+ $16 {! Stockfish-231-64-ja}
+( 26.Rxe6 Nxd5 ( 26...Rxf7 {??} 27.Qe3 Kf8 28.b3 $18 {'with the idea' Re1}
+) ( 26...Kxf7 {??} 27.Rxe7+ Rxe7 28.Qh5+ {!} $18 ) 27.b3 Qc5
+28.b4 Qc4 29.Rxe8 Rxe8 30.Rxd5 Kxf7 31.Rc5 Qe6 32.Rxc7+ Re7 33.Rc6
+Qe1+ 34.Kh2 Qe5+ 35.g3 Re6 36.Rc2 $14 ) ) *
+
+[Event "It (cat.20)"]
+[Site "Linares (Spain)"]
+[Date "2004.02.26"]
+[Round "7"]
+[White "Leko Peter (HUN)"]
+[Black "Shirov Alexei (ESP)"]
+[Result "1-0"]
+[ECO "C42"]
+[WhiteElo "2743"]
+[BlackElo "2726"]
+[Annotator ""]
+[Source ""]
+[Remark ""]
+
+1.e4 e5 2.Nf3 Nf6 3.Nxe5 d6 4.Nf3 Nxe4 5.d4 ( 5.c4 c6 6.Nc3 Nxc3
+7.dxc3 Be7 8.Be2 O-O 9.Bf4 Qb6 10.Qc2 Nd7 11.Rd1 Ne5 12.Nxe5
+dxe5 13.Bxe5 Qa5 14.Qe4 Re8 15.O-O Bf8 16.c5 Qxc5 17.Bd3 f5 18.Qc4+
+Be6 19.Qf4 g6 20.Bb1 Bg7 21.Rfe1 Bf7 22.Bxg7 Kxg7 23.h4 h6 24.h5
+g5 {...1/2-1/2, Leko Peter 2722  - Morozevich Alexander 2732 , Monte Carlo 2003 It "Melody Amber" (active)}
+) d5 6.Bd3 Bd6 7.O-O O-O 8.c4 c6 9.Qc2 Na6 10.a3 Bg4
+( 10...f5 11.Nc3 Nc7 12.b4 Nxc3 13.Qxc3 dxc4 14.Bg5 Qd7 15.Bxc4+
+Nd5 16.Qb3 h6 17.Bxd5+ cxd5 18.Bd2 Qf7 19.b5 Re8 20.Bb4 Bc7 21.Rac1
+Be6 22.a4 Rac8 23.Qa3 Qd7 24.Rfe1 Bf7 25.Rxe8+ Rxe8 {1/2-1/2, Leko Peter 2722  - Shirov Alexei 2736 , Wijk aan Zee 22. 1.2004 It (cat.19)}
+) 11.Ne5 {=} ( 11.c5 Bb8 12.Ne5 Bxe5 13.dxe5 Nexc5 14.Bxh7+ Kh8
+15.b4 Qh4 16.Bd3 Nxd3 17.Qxd3 Qh5 18.Re1 Bf5 19.Qg3 Nc7 20.Nd2
+Ne6 21.Bb2 b6 22.Nf1 c5 23.Ne3 d4 24.Nc4 b5 25.Nd6 c4 26.Nxf5
+Qxf5 27.Bxd4 Rfd8 28.Be3 Kg8 29.h3 Rd3 {1/2-1/2, Jobava Baadur 2616  - Mamedyarov Shakhriyaz 2646 , Plovdiv 2003 Ch Europe (team)}
+) Bh5 ( 11...Bxe5 12.dxe5 Nac5 13.f3 Nxd3 14.Qxd3 Nc5 15.Qd4
+Nb3 16.Qxg4 Nxa1 17.Bh6 g6 18.Nc3 Qb6+ 19.Rf2 Rfe8 20.Qf4 f5
+21.cxd5 Nb3 22.e6 cxd5 23.Nxd5 Qxe6 24.Nc7 Qc6 25.Nxe8 Rxe8 26.g4
+Qc5 27.Kg2 Nd4 28.b4 Qe5 29.Rd2 Qxf4 30.Bxf4 Ne6 31.Be3 {...1/2-1/2, Shirov Alexei 2746  - Leko Peter 2743 , Linares 2000 It (cat.21)}
+) 12.cxd5 ( 12.Nc3 Nxc3 13.bxc3 Kh8 14.cxd5 cxd5 15.f4 Rc8 16.Rb1
+Rc7 17.h3 Qc8 18.Bd2 Bxe5 19.fxe5 Bg6 20.Bxg6 {1/2-1/2, Krylov Sergey 2370  - Berlinsky Vladimir 2384 , Linares 2001 It (for the Blind)}
+) cxd5 13.Nc3 ( 13.Bxe4 dxe4 14.Qxe4 Re8 15.Be3 Nc5 16.Qc2 Ne6
+17.Qf5 Qh4 18.Nd2 Bg6 19.Qg4 Qxg4 20.Nxg4 f5 21.Nc4 Bf8 22.d5
+fxg4 23.dxe6 Rxe6 24.Rfd1 Rc8 25.Rac1 Rec6 26.Ne5 Rxc1 27.Rxc1
+Rxc1+ 28.Bxc1 Bf5 29.Be3 a6 30.Kf1 Bd6 31.Bd4 Kf8 32.Ke2 Bc7
+{...1/2-1/2, Potkin Vladimir 2533  - Rozentalis Eduardas 2625 , Bad Wiessee 2003 It (open)}
+) Bxe5 {N} ( 13...Nxc3 {, but then encountered difficulties:}
+14.bxc3 Kh8 15.f4 Bxe5 16.fxe5 Bg6 17.a4 Qd7 18.Ba3 Rfe8 19.Bxg6
+fxg6 20.Qb3 b6 21.Bd6 Nc7 22.Rf3 Rac8 23.Raf1 h6 24.Qc2 Qg4 25.Rg3
+Qh5 26.Rh3 Qg5 27.Rg3 Qh5 28.Bxc7 Rxc7 29.Rxg6 Qh4 30.h3 Qxd4+
+31.cxd4 Rxc2 32.Rf7 Rg8 33.Rd6
+{...1-0, Kasparov Garry 2838  - Shirov Alexei 2706 , Wijk aan Zee 2001 It
+(cat.19) The move 13...Bxe5 was suggested in commentary to that game and Alexei decided to play so this time.}
+) 14.dxe5 Nac5 15.Nxe4 Nxd3 16.Qxd3 Bg6 17.Qb3 Bxe4 18.Qxb7 Qh4
+{%08DA} 19.Qb3 {! This is an improvement. The white queen returns victoriously from its raid after having acquired a pawn.}
+( 19.f3 {, when Black obtained sufficient compensation for minimal material damage by}
+Bd3 20.Rf2 Qd4 ) d4 20.Qg3
+{So far it all develops according to Nimzowich's prescription - White
+consolidates his forces after a successful flank operation. In a surprising way
+White manages to achieve so pleasant position, especially as Leko's moves 19 and 20 were not a revelation to the chess world.}
+Qxg3 {With the queens on the board Black takes risks of getting under a direct
+mating attack. However, in the endgame his chances for draw are rather illusory
+- the opposite colored bishops are of a little help for him there.}
+21.hxg3 Rfc8 22.f3 Bg6 23.Rf2 h5 ( 23...Rc4 {!?} 24.Bf4 Bc2 {Pay the attention, the black bishop intrudes to the second rank where it disrupts co-ordination of white rooks.}
+25.Rc1 Rac8 ) 24.Bf4 ( 24.b4 {!?} d3 25.Be3 Re8 26.Bd4 ) d3 25.Bd2
+Rc2 {The black rook on the second rank only imitates the activity, while white's
+pawn majority on the queenside is no laughing matter at all. Perhaps, Black
+should have fixed the white pawns there at some moment by a5-a4.}
+26.Bc3 Kf8 27.Rd2 Rc8 28.Rad1 Ke7 29.Kf2 {After having firmly deployed his pieces, White brings his king into play.}
+Rc4 30.Ke3 Bf5 31.Rh1 g6 32.Rh4 Rxh4 33.gxh4 a6 34.Kd4 Kd7 35.Kc5
+Kc7 36.a4 {%09DB} Rc1 ( 36...Kb7 {!?} 37.g3 Kc7 38.Kd4 Rc1 )
+37.g4 {! A final stroke on a canvass deprives Black of any hope for counterplay.}
+hxg4 38.fxg4 Bxg4 39.Rxd3 Rh1 40.Ba5+ Kb7 41.Rb3+ Kc8 42.Rb4
+Rxh4 {?} ( 42...Be6 {!} 43.Kb6 Re1 44.Kxa6 ) 43.Rd4 g5 44.Be1
+{The rest is easy.} Rh1 45.Rxg4 Rxe1 46.Rxg5 Kd7 47.Rf5 Ke7 48.b4
+Ra1 {?!} ( 48...Ke6 {!?} ) 49.a5 Rc1+ 50.Kb6 Rc4 51.b5 axb5 52.a6
+Ke6 53.Rf6+ Kxe5 54.Rxf7 1-0
+
+[Event ""]
+[Site "Cappelle la Grande (France)"]
+[Date "2005.02.16"]
+[Round "?"]
+[White "Obrona francuska 7.Sf3"]
+[Black "Analiza"]
+[Result "*"]
+[ECO "C19"]
+[WhiteElo "0"]
+[BlackElo "0"]
+[Annotator "Szelag Marcin (POL)"]
+[Source ""]
+[Remark "analiza 16.II.2005"]
+
+1.e4 e6 2.d4 d5 3.Nc3 Bb4 4.e5 c5 5.a3 Bxc3+ 6.bxc3 Ne7 7.Nf3
+Bd7 ( 7...Qa5 8.Bd2 Bd7 9.Rb1 ( 9.a4 Nbc6 ) Bc6 10.dxc5 Nd7 {!} )
+8.a4 ( 8.Rb1 Qc7 ( 8...Bc6 {! ?} ) 9.Bf4 ( 9.dxc5 Ng6 {!} 10.Be2
+Bc6 {!} 11.Nd4 Nxe5 {!} ) ( 9.Bd3 ) c4 {!} 10.h4 Bc6 {! ?} 11.h5
+h6 12.Qd2 Nd7 13.Nh4 Qa5 ( 13...Nb6 14.g4 Na4 {xc3} ) )
+( 8.Bd3 {! ?} ) Qa5 9.Bd2 ( 9.Qd2 Nbc6 10.Ba3 cxd4 11.cxd4 Qxd2+
+12.Kxd2 Nf5 13.Rb1 b6 14.c3 Na5 15.Bb4 Nc4+ 16.Bxc4 dxc4 17.a5
+Bc6 ) Nbc6 10.Bb5 ( 10.Be2 f6 11.c4 Qc7 12.cxd5 Nxd5 13.c4 Nde7
+14.exf6 gxf6 15.dxc5 ( 15.Bc3 O-O-O 16.d5 exd5 17.Bxf6 Rhf8 )
+O-O-O ( 15...e5 ) 16.a5 a6 17.Bc3 e5 ) f6 11.Qe2 Qc7
+( 11...fxe5 {?} 12.Nxe5 Nxe5 13.Qxe5 Bxb5 14.c4 {!} ) 12.O-O
+a6 {!} 13.Bxc6 Nxc6 14.Bc1 ( 14.Bf4 {? !} cxd4 15.cxd4 Na5 16.Bg3
+f5 $15 ) ( 14.exf6 {! ?} gxf6 15.c4 {Tiger 2004} ) cxd4 15.exf6
+( 15.cxd4 Na5 16.Ba3 Nc4 ) gxf6 16.Nxd4 Qe5 {!} 17.Qd2 Nxd4
+( 17...Rg8 ) 18.cxd4 Qf5 19.Qb4 Rg8 {'with the idea' Rxg2} 20.Ra3
+( 20.Re1 Rc8 {! 'with the idea' Rxg2} ( 20...O-O-O 21.Ra3 Bc6
+22.Rg3 e5 ( 22...Qxc2 ) 23.Bb2 e4 24.Bc1 h5 25.h4 Rg4 26.Rxg4
+Qxg4 27.Qe7 Qf5 ( 27...Qxh4 ) 28.g3 Rd7 29.Qc5 Rd8 30.Bf4 Qe6
+31.f3 f5 32.fxe4 fxe4 33.Be5 Rd7 34.Qf8+ Rd8 35.Qg7 Qd7 36.Qg6
+Qe8 37.Qh6 Bxa4 38.Rf1 Bc6 39.Rf6 a5 40.Qf4 a4 41.Rf7 Bd7 42.Bb8
+{1-0, Nunn John D M 2578  - Hillarp Persson Tiger 2549 , Paington 2000 Memorial H.Golombek (cat.11)}
+) 21.Ba3 Rxg2+ 22.Kxg2 Qg4+ 23.Kf1 Qh3+ ) Bc6 21.Rg3 Kf7 {!}
+22.Ba3 Rae8 23.Qd6 Rg6 {= ! Nunn J. 2610 - Kindermann S. 2500, Wien 1991}
+ *
+
+[Event "It (cat.16)"]
+[Site "Dos Hermanas (Spain)"]
+[Date "2003.??.??"]
+[Round "3"]
+[White "Shirov Alexei (ESP)"]
+[Black "Khalifman Alexander (RUS)"]
+[Result "1/2-1/2"]
+[ECO "C18"]
+[WhiteElo "2736"]
+[BlackElo "2674"]
+[Annotator ""]
+[Source ""]
+[Remark "III-IV"]
+
+{[ FRENCH def. WINAWER var.,C18] Shirov Alexei (ESP) +1 =1 -0 1}
+1.e4 e6 2.d4 d5 3.Nc3 Bb4 4.e5 c5 5.a3 Bxc3+ 6.bxc3 Ne7 7.Qg4
+O-O 8.Bd3 Qa5 9.Bd2 Nbc6 10.Nf3 f5 11.exf6 Rxf6 12.Qh5 Nf5 $14 {/=}
+13.g4 ( 13.dxc5 Qxc5 14.g4 Nh6 15.g5 g6 16.Qh3 e5 17.Qg2 Rxf3
+18.Qxf3 e4 19.Qe3 Qxe3+ 20.Bxe3 exd3 21.gxh6 dxc2 22.Kd2 Bf5
+23.Ra2 Na5 24.Kc1 Rc8 25.Bd4 Nb3+ 26.Kb2 Nxd4 27.cxd4 Rc4 28.Kc1
+Kf7 29.Re1 Rxd4 30.Rb2 b6 31.Rb4 Rd3 32.Kxc2 Rxa3+ {...1-0, Korneev Oleg 2583  - Rodriguez Guerrero Enrique 2324 , Sevilla 2002 It (open)}
+) c4 14.gxf5 ( 14.Be2 Nd6 15.Ne5 Qa4 16.Nxc6 Qxc6 17.f3 Bd7 18.O-O
+Be8 19.Qh4 Bg6 20.Ra2 Re8 21.Qg3 Qb6 22.a4 Nf7 23.a5 Qc6 24.Bf4
+h6 25.Be5 Nxe5 26.Qxe5 Ref8 27.Kg2 Qd7 28.Kg3 Qd8 29.h3 R8f7
+30.f4 Be4 31.h4 Re7 32.Bd3 Rf5 33.gxf5 exf5 {...0-1, Giaccio Alfredo 2505  - Dolezal Cristian 2282 , Buenos Aires 1999 Ch Argentina}
+) cxd3 15.Rg1 Bd7 ( 15...Qc7 16.Bh6 Rxf5 17.Qe8+ Rf8 18.Bxg7
+Rxe8 19.Be5+ Kf8 20.Bxc7 e5 21.dxe5 dxc2 22.Bd6+ Kf7 23.Ng5+
+Kg6 24.Kd2 Bf5 25.Rg3 Na5 26.Rag1 Nb3+ 27.Ke3 c1Q+ 28.Rxc1 Nxc1
+29.Ne6+ Kf7 30.Nc7 h6 31.h4 Rac8 32.Rf3 Kg6 33.h5+ Kg5 34.Rg3+
+Kxh5 35.Nxd5 {...0-1, Paramos Dominguez Roberto 2425  - Oms Pallise Josep 2412 , Cala Galdana 1999 Ch Spain (team) (1 Div)}
+) ( 15...dxc2 ) 16.c4 ( 16.Qg5 Rf7 17.f6 Qd8 18.Qh6 Qxf6 19.Qxf6
+Rxf6 20.Ne5 Nxe5 21.dxe5 Rf5 22.cxd3 Rxe5+ 23.Be3 Rh5 24.Rb1
+Bc6 25.Bf4 e5 26.Rg5 Rxg5 27.Bxg5 Rf8 28.Bh4 Rf3 29.Kd2 e4 30.dxe4
+dxe4 31.Rb4 h5 32.Rd4 g5 33.Bxg5 Rxf2+ 34.Ke3 Rxh2 35.Kf4 Rf2+
+{...0-1, Kovacevic Aleksandar 2478  - Dimitrov Vladimir 2464 , Lazarevac 1999 It (cat.8)}
+) Qc7 ( 16...Qd8 17.Bh6 Rf7 18.Ng5 Qa5+ 19.Kf1 Raf8 20.Nxf7 Rxf7
+21.Bxg7 Rxg7 22.f6 {1-0, Timman Jan H 2623  - Van Haastert Edwin 2427 , Amsterdam 2002 It (open) "Lost Boys"}
+) 17.Bh6 Be8 18.Qh4 Rxh6 19.Qxh6 dxc4 ( 19...exf5 ) 20.cxd3 cxd3
+21.f6 {N} ( 21.Rd1 Bg6 22.Rxg6 hxg6 23.Qxg6 Qa5+ 24.Kf1 Qxf5
+25.Qxf5 exf5 26.Rxd3 Rd8 27.d5 Rd6 28.Rb3 Nd8 29.Rd3 Nc6 30.Rb3
+Na5 31.Rb5 b6 32.a4 Kf7 33.Ng5+ Kf6 34.f4 Nc4 35.Ke2 Rd8 {1/2-1/2, Sax Gyula 2588  - Goloshchapov Alexander 2519 , Montecatini Terme 1999 It (open)}
+) Bg6 22.Qxg7+ {!} ( 22.Qe3 {?} e5 23.Rd1 Nxd4 24.Nxd4 ) Qxg7
+23.fxg7 Rd8 24.Rg4 Bf5 25.Rf4 Ne7 26.Kd2 Ng6 27.Rxf5 exf5 28.Rb1
+b6 29.Rb5 Ne7 {!} ( 29...f4 {?} 30.Kxd3 Kxg7 31.Rf5 h6 ) 30.Re5
+Rd7 31.Kxd3 Kxg7 32.h4 Kf6 33.Ng5 Ng6 34.Re6+ Kg7 35.Kc4 Rc7+
+36.Kb5 Nxh4 37.Rxb6 axb6 {!} ( 37...Rd7 {?} 38.Ra6 Ng6 39.Kc6
+Re7 ) 38.Ne6+ Kf6 {?!} ( 38...Kf7 {!?} 39.Nxc7 h5 40.Kxb6 Ng6
+) 39.Nxc7 Nf3 {?!} ( 39...Ng6 {!?} 40.Nd5+ Ke6 41.Ne3 h5 ) 40.Nd5+
+{?} ( 40.Kxb6 h5 41.a4 h4 42.a5 ) Kg5 41.Kxb6 {!} ( 41.Nxb6 {?}
+h5 42.Nc4 h4 43.Ne3 ) Nxd4 {!} ( 41...h5 {?} 42.a4 f4 43.a5 h4
+) 42.Kc5 Ne6+ 43.Kd6 Nd4 44.Kc5 1/2-1/2
+
+[Event "WYB18"]
+[Site "Heraklio GRE"]
+[Date "2004.11.07"]
+[Round "5"]
+[White "Stellwagen,D"]
+[Black "Kim,Alex"]
+[Result "1/2-1/2"]
+[ECO "C18"]
+[WhiteElo "2512"]
+[BlackElo "2443"]
+[Annotator ""]
+[Source ""]
+[Remark ""]
+
+1.e4 e6 2.d4 d5 3.Nc3 Bb4 4.e5 Ne7 5.a3 Bxc3+ 6.bxc3 c5 7.Qg4
+O-O 8.Bd3 Qa5 9.Bd2 Nbc6 10.Nf3 f5 11.exf6 Rxf6 12.Qh5 Nf5 13.c4
+Qa4 ( 13...Qc7 ) 14.g4 dxc4 15.Be4 Nce7 ( 15...Nd8 {?} 16.gxf5
+exf5 17.Ng5 Rh6 18.Bd5+ Be6 19.Bxe6+ Nxe6 20.Qf7+ Kh8 21.Qxb7 )
+16.Bg5 Qa5+ {?} ( 16...g6 $8 17.Qh3 Rf8 $8 ( 17...Rf7 18.Ne5
+{!} $18 ) 18.O-O {!} ( 18.gxf5 {?} exf5 $17 ) cxd4
+( 18...Qe8 19.dxc5 $16 ) 19.Bxe7 ( 19.gxf5 exf5 20.Bxb7 Bxb7
+21.Bxe7 Rf7 {'with the idea' Qc6} ) Nxe7 20.Ng5 h5 21.Bxg6 {!}
+( 21.gxh5 e5 {'with the idea' Rf4} ) Nxg6 ( 21...Kg7 22.Qxh5
+Rh8 23.Nxe6+ Bxe6 24.Qe5+ Kh6 25.Be4 Bxg4 26.Qf6+ Kh5 27.Qxe7
+Rag8 28.Kh1 Qd7 ( 28...Qe8 29.Qc5+ Rg5 30.Qxd4 ) 29.Qe5+ )
+( 21...Rf6 22.Bh7+ Kg7 23.Qxh5 Bd7 24.Ne4 {!} Rf7 25.g5 $18 )
+22.Qxh5 Qd7 ( 22...Rf7 23.Nxf7 Kxf7 24.Qh7+ Kf6 25.f4 $18 )
+( 22...Rf6 23.Qh7+ Kf8 24.Qh6+ {!} Kg8 25.Ne4 $18 ) 23.Qxg6+
+Qg7 24.Qxg7+ Kxg7 25.f4 Rd8 ( 25...a5 {?} 26.Rad1 Rd8 27.Nf3
+$16 ) 26.Rad1 $14 ) ( 16...Rg6 17.gxf5 exf5 18.Bxe7 $18 ) 17.Kf1
+g6 18.Qh3 Rf8 19.gxf5 exf5 20.Bd3 {!} cxd3 21.Bxe7 $18 Re8 22.Bxc5
+dxc2 23.Ng5 Qb5+ 24.Kg2 Qc6+ 25.Kg1 Qc7 26.Qb3+ Kg7 27.Qxc2 Qf4
+28.h4 h6 29.d5 Qg4+ 30.Kf1 b6 31.Bd4+ Kg8 32.Qc4 Ba6 33.Qxa6
+Qxd4 34.Rc1 Qxd5 35.Qc4 Qxc4+ 36.Rxc4 hxg5 37.hxg5 Rac8 38.Rhh4
+Rxc4 39.Rxc4 Re5 40.Rc8+ Kf7 41.Rc7+ Ke6 42.Rxa7 f4 43.Ra6 Rb5
+44.a4 Rb1+ 45.Kg2 Kf5 46.a5 b5 47.Rf6+ Kg4 48.a6 Ra1 49.f3+ Kxg5
+50.Rb6 Kh5 51.Rxb5+ Kh4 52.Rb6 Ra2+ 53.Kg1 g5 54.Rg6 Kg3 55.Rxg5+
+Kxf3 56.Rb5 1/2-1/2
+
+[Event "It (open)"]
+[Site "Capelle la Grande (France)"]
+[Date "2005.02.19"]
+[Round "9"]
+[White "Szelag Marcin (POL)"]
+[Black "Naumkin Igor (RUS)"]
+[Result "1-0"]
+[ECO "C18"]
+[WhiteElo "2474"]
+[BlackElo "2422"]
+[Annotator "Szelag Marcin (POL)"]
+[Source ""]
+[Remark ""]
+
+1.e4 e6 2.d4 d5 3.Nc3 Bb4 4.e5 c5 5.a3 Bxc3+ 6.bxc3 Ne7 7.Qg4
+O-O 8.Bd3 Qa5 9.Bd2 Nbc6 10.Nf3 f5 11.exf6 Rxf6 12.Qh5
+( 12.c4 Qd8 ) Nf5 13.c4 {!} Qd8 ( 13...Qa4 14.g4 {!} dxc4 15.Be4
+Ncxd4 16.gxf5 {!} ) ( 13...Qc7 14.dxc5 {!} ( 14.g4 {?} Ncxd4
+{!} $17 {Tiger 2004} 15.Nxd4 ( 15.gxf5 Nxf3+ 16.Qxf3 Qe5+ $19 )
+Qe5+ ) ( 14.O-O {? !} dxc4 {!} 15.Bxc4 Ncxd4 16.Nxd4 cxd4 )
+( 14.cxd5 {? !} Ncxd4 {!} 15.Nxd4 ( 15.O-O {?} g6 {!} 16.Qg4
+exd5 $15 {/} $17 ) Qe5+ 16.Qe2 Qxd4 17.O-O exd5 ) Ne5
+( 14...dxc4 15.Bxc4 ( 15.Be4 {! ?} ) Ne5 ( 15...Ncd4 {?} 16.Nxd4
+Qxc5 ( 16...Qe5+ {?} 17.Be3 {!} $18 ) 17.Bb4 Qe5+ 18.Qe2 Qxd4
+19.Rd1 Qb6 20.O-O $14 {/} $16 ) 16.Bc3 {!} ( 16.Qe8+ {?} Rf8
+17.Bxe6+ Bxe6 18.Qxe6+ Kh8 $17 {'with the idea' Rae8} )
+( 16.Be2 {? !} Nxf3+ 17.Qxf3 Nd4 {!} 18.Qe4 Nxe2 19.Qxe2 Qxc5
+{=} ) Nxf3+ $8 ( 16...Nxc4 {?} 17.Bxf6 gxf6 18.Qg4+ $18 {'with the idea' Qxc4}
+) 17.Qxf3 Rf7 18.Rd1 Nd6 ( 18...Bd7 19.O-O Re8 20.Rfe1 $16 )
+( 18...Qxc5 19.Rd8+ Rf8 20.Rxf8+ Qxf8 21.O-O $16 ) 19.cxd6 Qxc4
+$14 {/} $16 ) ( 14...Bd7 15.O-O Raf8 16.cxd5 exd5 17.Rfe1 $16 )
+15.O-O ( 15.Bc3 g6 16.Qh3 Nxd3+ 17.cxd3 e5 18.Bxe5 Qa5+ 19.Nd2
+Re6 20.f4 Nd4 {!} ) g6 ( 15...Nxd3 16.cxd3 dxc4 17.Bc3 Rf8 18.dxc4 )
+( 15...dxc4 16.Nxe5 ( 16.Be4 ) Qxe5 17.Bxc4 ) 16.Qh3 Nxd3 17.cxd3
+e5 ( 17...dxc4 18.Bc3 ) 18.g4 {!} Nd4 ( 18...e4 19.dxe4 dxe4
+20.Bc3 ) ( 18...Ng7 19.cxd5 h5 20.Ng5 {!} ) 19.Nxd4 exd4 20.cxd5
+Qxc5 21.Qg2 {!} Bd7 22.Bb4 Qb5 23.Qe4 Qb6 $16 ) 14.O-O {?}
+( 14.dxc5 {!} dxc4 ( 14...g6 15.Qg4 {!} e5 ( 15...h5 16.Qg5 $16 )
+16.cxd5 Nfd4 17.Qh4 {xRf6} Nxf3+ 18.gxf3 Nd4 19.O-O-O {!} Nxf3
+20.Qc4 $18 ) 15.Bxc4 {!} ( 15.Be4 Ncd4 {!} 16.Rd1 {xBd2}
+( 16.Bc3 Rh6 {!} 17.Qg4 e5 ) g6 17.Qh3 e5 18.Ng5 h6 ) Nfd4
+( 15...Ncd4 16.O-O-O $16 ) 16.O-O-O {!!} Nxf3 17.Bc3
+( 17.gxf3 {?} Qd4 {!} ) Nfd4 18.Bxd4 Nxd4 19.Qe5 Qa5
+( 19...Ne2+ 20.Bxe2 ) 20.Rxd4 Qxa3+ 21.Kb1 $18 ) ( 14.Bg5 Qa5+
+15.Bd2 Qd8 {=} ) h6 {?} ( 14...dxc4 {!} 15.Bxc4 ( 15.Be4 g6 16.Qg4
+h5 17.Qh3 Nfxd4 18.Bg5 ( 18.Nxd4 Qxd4 19.Bc3 ( 19.Bxc6 Qxd2 )
+e5 20.Qh4 Qd6 21.Bxc6 Qxc6 22.Bxe5 Re6 ) Rxf3 {!} 19.Qh4 Qf8
+20.gxf3 Nxf3+ 21.Bxf3 Qxf3 {'with the idea' Nd4} ) Nfxd4 {!}
+16.Nxd4 ( 16.Bg5 {?} Nxf3+ 17.gxf3 Rf5 {!} ) Qxd4 17.Bd3 $44
+( 17.Qe8+ Rf8 18.Bxe6+ Bxe6 19.Qxe6+ Kh8 20.Be3 Qc3 ) g6
+( 17...h6 18.Be3 {!} ) 18.Qg5 Rxf2 19.Be3 Rxf1+ 20.Rxf1 Qe5 21.Bxg6
+Qxg5 22.Bf7+ Kg7 23.Bxg5 Bd7 $15 ) 15.dxc5 {!} dxc4
+( 15...e5 16.cxd5 Qxd5 17.Rfe1 g6 18.Qg4 Nfd4 19.Be4 {!} $14 {/} $16 )
+16.Bxc4 Qe7 17.Bc3 Rf8 ( 17...Rf7 ) 18.g4 {?} ( 18.Bb2 Qxc5 19.Bb3
+$16 ) Qxc5 19.gxf5 Qxc4 20.Bxg7 Rxf5 $8 ( 20...Kxg7 21.Qg6+ Kh8
+22.Qxh6+ Kg8 23.Qg6+ Kh8 24.Kh1 {!} Qf4 25.Ng5 {!} Qxf5 26.Qh6+
+Kg8 27.Rg1 $18 ) ( 20...Rf7 21.Ng5 ( 21.Bxh6 $18 ) Rxf5 22.Bxh6
+$18 ) 21.Qg6 Ne7 $8 22.Qe8+ Kxg7 ( 22...Kh7 23.Qh8+ Kg6 24.Qxh6+
+Kf7 25.Ne5+ $18 ) 23.Qxe7+ Kh8 $8 ( 23...Rf7 {??} 24.Qxf7+ {!} $18 )
+24.Ne5 {??} ( 24.Qe8+ Kh7 25.Qe7+ {=} ) Rxe5 {??} ( 24...Bd7
+{!!} 25.Qxd7 ( 25.Nxc4 Rg8+ 26.Kh1 Bc6+ 27.f3 Rxf3 $19 ) Rg8+
+26.Kh1 Qe4+ 27.f3 Qxc2 {'with the idea' Qxh2, Rh5#} 28.Nf7+
+( 28.Ng4 {!} ) Rxf7 29.Qd4+ Kh7 $17 ( 29...Rgg7 ) ) 25.Qf6+ Kh7
+26.Qf7+ Kh8 27.Qf6+ Kh7 28.Qxe5 $16 Bd7 29.f3 Rg8+ 30.Kh1 Bc6
+31.Rf2 Qh4 ( 31...Qg4 32.Qc3 {!} ) 32.Raf1 Qh3 33.Qc3 {'with the idea' Rg1}
+h5 ( 33...Rf8 34.Rg2 {!} Rf7 35.Qd3+ Rf5 36.Rg3 ) 34.Qd3+
+( 34.Rg1 Rg4 35.Qf6 {'with the idea' Rgg2} ) Kh6 35.Qe3+ Kh7
+36.Rg1 Rg4 37.Rxg4 Qxg4 ( 37...hxg4 38.Qxe6 Bxf3+ 39.Kg1 $18 )
+38.Qc3 Qf4 39.Qd3+ Kh6 40.Rg2 Qf6 41.Qe3+ Kh7 42.Rf2 a6 43.Kg1
+Bb5 44.h4 {!} $18 Bc6 ( 44...Qxh4 45.Rh2 Qg3+ ( 45...Qf6 46.Rxh5+
+Kg7 47.Qg5+ ) 46.Rg2 $18 ) 45.Qg5 Qxg5+ ( 45...Qf7 46.Kg2 ) 46.hxg5
+Kg6 ( 46...e5 47.Re2 Bxf3 48.Rxe5 Kg6 49.Kh2 $18 ) 47.f4 h4 48.Re2
+Bd5 49.Kh2 Kh5 50.Re5 Bc4 51.a4 b6 52.Re1 b5 53.a5 Kg6 54.Re5
+Ba2 55.Kh3 Kh5 56.Rc5 Bd5 57.Rc7 e5 58.Rh7+ Kg6 59.Rh6+ Kf5 60.Rf6+
+Ke4 61.fxe5 1-0
+
