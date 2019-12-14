@@ -7,4 +7,6 @@
 
 ## How to build executable jar?
 You need to execute fat jar build task with gradle - `./gradlew shadowJar` in main project dir.
-Result will lend in `build/libs` and be named like `ChessStrongMovesExtractor-<version>-all.jar`.
+Result will lend in `build/libs` and be named like `strong-moves-extract-<version>.jar`.
+
+You may also use build & run script `strong-moves-extract`; then you should specify `JAVA_HOME` and 
