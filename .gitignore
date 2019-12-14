@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# forbid any word file...
+*.docx
+*.doc
 # Log file
 *.log
 
