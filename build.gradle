@@ -40,6 +40,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile 'io.github.microutils:kotlin-logging:1.5.4'
     implementation("com.github.ajalt:clikt:2.3.0")
+    compile files('libs/pgn-reader.jar')
 
     testCompile "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version"
     testImplementation(
