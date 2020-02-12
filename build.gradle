@@ -3,6 +3,7 @@ buildscript {
         kotlin_version = '1.3.61'
         junit5_version = "5.1.0"
         junit5_plugin_version = "1.1.0"
+        jackson_version = "2.10.2"
     }
 
     repositories {
@@ -14,6 +15,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
         classpath "org.junit.platform:junit-platform-gradle-plugin:$junit5_plugin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 }
 
@@ -21,7 +23,7 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
-
+apply plugin: 'kotlinx-serialization'
 group 'pl.poznan.put'
 version '1.0'
 
@@ -41,6 +43,7 @@ dependencies {
     compile 'io.github.microutils:kotlin-logging:1.5.4'
     implementation("com.github.ajalt:clikt:2.3.0")
     compile files('libs/pgn-reader.jar')
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0"
 
     testCompile "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version"
     testImplementation(
