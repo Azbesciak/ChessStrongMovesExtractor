@@ -39,12 +39,21 @@ private fun Params.readServerConfig(json: Json) =
         ServerConfigReader(json) read uciServerConfigPath
 
 private suspend fun HttpClient.connectWithServer(uciServerConfig: UciServerConfig) {
+    val authResult: AuthorizationResponse = authorize(uciServerConfig)
+    startEngine(uciServerConfig, authResult)
+}
+
+private suspend fun HttpClient.authorize(uciServerConfig: UciServerConfig): AuthorizationResponse {
     val credentials = Credentials(uciServerConfig.login, uciServerConfig.password)
     val authResult: AuthorizationResponse = post {
         request(uciServerConfig, AUTH_PATH)
         body = credentials
     }
     require(authResult.success) { "Authorization failed for $credentials" }
+    return authResult
+}
+
+private suspend fun HttpClient.startEngine(uciServerConfig: UciServerConfig, authResult: AuthorizationResponse) {
     val startResult: EngineStartCommandResponse = post {
         request(uciServerConfig, ENGINE_START_PATH, authResult)
         body = EngineStartCommand(uciServerConfig.engine.name)
