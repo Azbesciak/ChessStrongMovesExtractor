@@ -15,14 +15,15 @@ fun main(args: Array<String>) = ProgramExecutor {
     println(uciServerConfig)
     println(mainPathMovesGame)
     UciServerConnector(client, json, uciServerConfig, this).run {
-        val connectionManager = connect()
-        registerCloseTask { connectionManager.close() }
-        mainPathMovesGame.forEach {
-            val gameConnection = connectionManager.newGame()
-            val player = GamePlayer(it, gameConnection)
-            player.play()
-            gameConnection.close()
+        val closeConnection = connect { newGame ->
+            mainPathMovesGame.forEach {
+                val gameConnection = newGame()
+                val player = GamePlayer(it, gameConnection)
+                player.play()
+                gameConnection.close()
+            }
         }
+        registerCloseTask { closeConnection() }
     }
 }.main(args)
 

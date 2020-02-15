@@ -28,30 +28,32 @@ class UciServerConnector(
     private var connected = false
     private var listener: UciWebSocketListener? = null
 
-    fun connect(): ConnectionManager {
+    fun connect(onUciConnection: (newGame: ()-> GameConnection) -> Unit): () -> Unit {
         require(!connected) { "can connect only once" }
         try {
-            makeConnection()
+            makeConnection {
+                onUciConnection {
+                    requireNotNull(listener) { "connection already closed" }
+                    listener!!.newGame()
+                }
+            }
         } catch (e: Throwable) {
             close()
             throw e
         }
-        return ConnectionManager(close = {
+        return {
             listener?.close()
             listener = null
             close()
-        }, newGame = {
-            requireNotNull(listener) { "connection already closed" }
-            listener!!.newGame()
-        })
+        }
     }
 
-    private fun makeConnection() {
+    private fun makeConnection(onUciConnection: () -> Unit) {
         client.logoutUser(true)
         authResponse = client.authorize()
         client.tryToCloseEngine(true)
         client.startEngine()
-        client.manageWebSocket()
+        client.manageWebSocket(onUciConnection)
         connected = true
     }
 
@@ -83,9 +85,9 @@ class UciServerConnector(
         }
     }
 
-    private fun OkHttpClient.manageWebSocket() {
+    private fun OkHttpClient.manageWebSocket(onUciConnection: () -> Unit) {
         val request = request(WEBSOCKET_PATH)
-        listener = UciWebSocketListener(uciServerConfig.engine, programParams)
+        listener = UciWebSocketListener(uciServerConfig.engine, programParams, onUciConnection)
         newWebSocket(request, listener!!)
         dispatcher.executorService.shutdown()
     }

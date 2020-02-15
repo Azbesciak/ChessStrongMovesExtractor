@@ -7,7 +7,8 @@ import okhttp3.WebSocketListener
 
 class UciWebSocketListener(
         private val engine: UciServerEngine,
-        private val params: Params
+        private val params: Params,
+        private val onReady: () -> Unit
 ) : WebSocketListener(), AutoCloseable {
     private companion object : KLogging() {
         const val MULTI_PV_PROP = "MultiPV"
@@ -63,6 +64,7 @@ class UciWebSocketListener(
         ws = webSocket
         setOptions()
         startNewConversation()
+        onReady()
     }
 
     fun newGame(): GameConnection {
