@@ -39,13 +39,14 @@ repositories {
     mavenCentral()
     maven { url "https://dl.bintray.com/kotlin/ktor" }
     maven { url "https://kotlin.bintray.com/kotlinx" }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile 'io.github.microutils:kotlin-logging:1.5.4'
     implementation("com.github.ajalt:clikt:2.3.0")
-    compile files('libs/pgn-reader.jar')
+    implementation 'com.github.Azbesciak:JavaPgnReader:1.0.0'
     implementation "org.slf4j:slf4j-log4j12:1.7.30"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0"
     implementation "com.squareup.okhttp3:okhttp:4.3.1"
@@ -59,6 +60,7 @@ dependencies {
             "org.junit.platform:junit-platform-launcher:$junit5_plugin_version",
             "org.junit.platform:junit-platform-runner:$junit5_plugin_version",
     )
+
     testCompile "com.nhaarman:mockito-kotlin:1.6.0"
 }
 
