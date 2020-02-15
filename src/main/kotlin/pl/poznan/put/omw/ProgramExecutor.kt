@@ -5,6 +5,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.options.transformAll
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.int
@@ -37,7 +38,15 @@ class ProgramExecutor(private val task: Params.() -> Unit) : CliktCommand(name =
     private val variationsNumber by option(
             help = "number of variations in multi-variation mode; default: 2 (minimal acceptable value)",
             names = *arrayOf("-n", "--variations-num")
-    ).int().default(ProgramDefaults.variationsNumber).validate { it >= 2 }
+    ).int().transformAll { values ->
+        if (values.isEmpty()) {
+            OptionalWithDefault(ProgramDefaults.variationsNumber, false)
+        } else {
+            require(values.size == 1) { "only one value acceptable for variations" }
+            require(values.first() >= ProgramDefaults.variationsNumber) { "min allowed value for multi-variations: ${ProgramDefaults.variationsNumber}" }
+            OptionalWithDefault(values.first(), true)
+        }
+    }
 
     private val uciServerConfigPath by option(
             help = "path to UCI Server configuration file (relative or absolute); default: ${ProgramDefaults.uciServerConfigPath}",
@@ -67,6 +76,10 @@ class ProgramExecutor(private val task: Params.() -> Unit) : CliktCommand(name =
     }
 }
 
+data class OptionalWithDefault(
+        val value: Int,
+        val wasSet: Boolean
+)
 
 enum class HeaderType {
     MINIMAL, CONCISE, ALL;
@@ -113,7 +126,7 @@ data class Params(
         val headerTypes: HeaderType,
         val centipawns: Int,
         val engineDepth: Int,
-        val variationsNumber: Int,
+        val variationsNumber: OptionalWithDefault,
         val uciServerConfigPath: String,
         val inputPath: String,
         val outputPath: String
