@@ -119,10 +119,10 @@ class UciServerConnector(
                 onResponse(requireNotNull(it.body).string())
             }
 
-    private fun request(path: String, builder: (Request.Builder.() -> Request.Builder)? = null) =
+    private inline fun request(path: String, builder: Request.Builder.() -> Request.Builder = { this }) =
             Request.Builder()
                     .url(uciServerConfig.url + path)
-                    .run { builder?.let { it() } ?: this }
+                    .builder()
                     .run { authResponse?.let { auth(it) } ?: this }
                     .build()
 
