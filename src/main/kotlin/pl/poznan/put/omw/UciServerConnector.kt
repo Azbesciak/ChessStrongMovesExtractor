@@ -17,6 +17,7 @@ class UciServerConnector(
     private companion object : KLogging() {
         val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
         const val AUTH_PATH = "/user/login"
+        const val USER_LOGOUT = "/user/logout"
         const val ENGINE_START_PATH = "/engine/start"
         const val ENGINE_STOP_PATH = "/engine/stop"
         const val WEBSOCKET_PATH = "/ws_engine"
@@ -28,9 +29,12 @@ class UciServerConnector(
 
     fun connect() {
         require(!connected) { "can connect only once" }
+        client.logoutUser(true)
         authResponse = client.authorize()
+        client.tryToCloseEngine(true)
         client.startEngine()
         client.manageWebSocket()
+        connected = true
     }
 
     private fun OkHttpClient.authorize(): AuthorizationResponse {
@@ -60,6 +64,52 @@ class UciServerConnector(
         }
     }
 
+    private fun OkHttpClient.manageWebSocket() {
+        val request = request(WEBSOCKET_PATH)
+        val listener = UciWebSocketListener(uciServerConfig.engine, programParams)
+        newWebSocket(request, listener)
+        dispatcher.executorService.shutdown()
+    }
+
+    override fun close() {
+        if (!engineStarted) return
+        client.tryToCloseEngine()
+        client.logoutUser()
+    }
+
+    private fun OkHttpClient.tryToCloseEngine(silent: Boolean = false) {
+        try {
+            val req = request(ENGINE_STOP_PATH) {
+                emptyPost()
+            }
+            execute(req) {
+                if (silent) return
+                logger.info { "engine close response: $it" }
+            }
+        } catch (t: Throwable) {
+            if (silent) return
+            logger.error(t) { "could not gracefully close UciServerConnector" }
+        }
+    }
+
+    private fun OkHttpClient.logoutUser(silent: Boolean = false) {
+        try {
+            val req = request(USER_LOGOUT) {
+                emptyPost()
+            }
+            execute(req) {
+                if (!silent)
+                    logger.info { "user logout result: $req" }
+                authResponse = null
+            }
+        } catch (t: Throwable) {
+            if (silent) return
+            logger.error(t) { "could not logout user" }
+        }
+    }
+
+    private fun Request.Builder.emptyPost() = post("{}".toRequestBody(JSON_MEDIA_TYPE))
+
     private inline fun <reified T> OkHttpClient.execute(request: Request, onResponse: (String) -> T) =
             newCall(request).execute().use {
                 if (!it.isSuccessful) {
@@ -81,23 +131,4 @@ class UciServerConnector(
 
     private inline fun <reified T> T.toRequest(serializer: SerializationStrategy<T>, json: Json) =
             json.stringify(serializer, this).toRequestBody(JSON_MEDIA_TYPE)
-
-    private fun OkHttpClient.manageWebSocket() {
-        val request = request(WEBSOCKET_PATH)
-        val listener = UciWebSocketListener(uciServerConfig.engine, programParams)
-        newWebSocket(request, listener)
-        dispatcher.executorService.shutdown()
-    }
-
-    override fun close() {
-        if (!engineStarted) return
-        try {
-            val req = request(ENGINE_STOP_PATH)
-            client.execute(req) {
-                logger.info { "engine close response: $it" }
-            }
-        } catch (t: Throwable) {
-            logger.error(t) { "could not gracefully close UciServerConnector" }
-        }
-    }
 }
