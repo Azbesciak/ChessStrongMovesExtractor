@@ -2,6 +2,7 @@ package pl.poznan.put.omw
 
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
+import mu.KLogging
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -12,7 +13,7 @@ class UciServerConnector(
         private val json: Json,
         private val uciServerConfig: UciServerConfig
 ) {
-    private companion object {
+    private companion object : KLogging() {
         val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
         const val AUTH_PATH = "/user/login"
         const val ENGINE_START_PATH = "/engine/start"
@@ -56,6 +57,10 @@ class UciServerConnector(
 
     private inline fun <reified T> OkHttpClient.execute(request: Request, onResponse: (String) -> T) =
             newCall(request).execute().use {
+                if (!it.isSuccessful) {
+                    logger.error { "Request ${request.url} failed: ${it.body}" }
+                    throw RuntimeException(it.message)
+                }
                 onResponse(requireNotNull(it.body).string())
             }
 
