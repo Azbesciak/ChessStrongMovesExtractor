@@ -13,7 +13,7 @@ class UciServerConnector(
         private val json: Json,
         private val uciServerConfig: UciServerConfig,
         private val programParams: Params
-) : AutoCloseable {
+) {
     private companion object : KLogging() {
         val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
         const val AUTH_PATH = "/user/login"
@@ -27,14 +27,28 @@ class UciServerConnector(
     private var authResponse: AuthorizationResponse? = null
     private var connected = false
 
-    fun connect() {
+    fun connect(): () -> Unit {
         require(!connected) { "can connect only once" }
+        val onClose = try {
+            makeConnection()
+        } catch (e: Throwable) {
+            close()
+            throw e
+        }
+        return {
+            onClose()
+            close()
+        }
+    }
+
+    private fun makeConnection(): () -> Unit {
         client.logoutUser(true)
         authResponse = client.authorize()
         client.tryToCloseEngine(true)
         client.startEngine()
-        client.manageWebSocket()
-        connected = true
+        return client.manageWebSocket().also {
+            connected = true
+        }
     }
 
     private fun OkHttpClient.authorize(): AuthorizationResponse {
@@ -61,20 +75,23 @@ class UciServerConnector(
                 val info = if (startResult.info.isNotBlank()) ": ${startResult.info}" else ""
                 "Could not start engine$info"
             }
+            engineStarted = true
         }
     }
 
-    private fun OkHttpClient.manageWebSocket() {
+    private fun OkHttpClient.manageWebSocket(): () -> Unit {
         val request = request(WEBSOCKET_PATH)
         val listener = UciWebSocketListener(uciServerConfig.engine, programParams)
         newWebSocket(request, listener)
         dispatcher.executorService.shutdown()
+        return { listener.close() }
     }
 
-    override fun close() {
+    private fun close() {
         if (!engineStarted) return
         client.tryToCloseEngine()
         client.logoutUser()
+        logger.info { "uci connector closed" }
     }
 
     private fun OkHttpClient.tryToCloseEngine(silent: Boolean = false) {
@@ -86,6 +103,7 @@ class UciServerConnector(
                 if (silent) return
                 logger.info { "engine close response: $it" }
             }
+            engineStarted = false
         } catch (t: Throwable) {
             if (silent) return
             logger.error(t) { "could not gracefully close UciServerConnector" }

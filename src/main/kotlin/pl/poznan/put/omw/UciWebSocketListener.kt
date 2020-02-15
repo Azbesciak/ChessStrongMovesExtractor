@@ -8,15 +8,18 @@ import okhttp3.WebSocketListener
 class UciWebSocketListener(
         private val engine: UciServerEngine,
         private val params: Params
-) : WebSocketListener() {
+) : WebSocketListener(), AutoCloseable {
     private companion object : KLogging() {
         const val MULTI_PV_PROP = "MultiPV"
         const val SIDE_PROP = "Analysis Contempt"
         const val SIDE_VALUE = "White"
     }
 
+    private var ws: WebSocket? = null
+
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
         logger.info("socket closed: ($code) $reason")
+        ws = null
     }
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
@@ -39,6 +42,8 @@ class UciWebSocketListener(
 
     private fun setOptions(webSocket: WebSocket) {
         // https://github.com/official-stockfish/Stockfish
+        // http://wbec-ridderkerk.nl/html/UCIProtocol.html
+        ws = webSocket
         val options = engine.options.toMutableMap()
         val originalMultiPV = options[MULTI_PV_PROP]
         when {
@@ -57,5 +62,12 @@ class UciWebSocketListener(
 
     private fun updateMultiPvValueToUserPreference(options: MutableMap<String, String>) {
         options[MULTI_PV_PROP] = params.variationsNumber.value.toString()
+    }
+
+    override fun close() {
+        ws?.runCatching {
+            send("quit")
+            ws = null
+        }
     }
 }

@@ -3,6 +3,7 @@ package pl.poznan.put.omw
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import okhttp3.OkHttpClient
+import kotlin.concurrent.thread
 
 
 fun main(args: Array<String>) = ProgramExecutor {
@@ -13,10 +14,15 @@ fun main(args: Array<String>) = ProgramExecutor {
     val uciServerConfig = readServerConfig(json)
     println(uciServerConfig)
     println(mainPathMovesGame)
-    UciServerConnector(client, json, uciServerConfig, this).use {
-        it.connect()
+    UciServerConnector(client, json, uciServerConfig, this).run {
+        val close = connect()
+        registerCloseTask { close() }
     }
 }.main(args)
 
 private fun Params.readServerConfig(json: Json) =
         ServerConfigReader(json) read uciServerConfigPath
+
+fun registerCloseTask(task: () -> Unit) {
+    Runtime.getRuntime().addShutdownHook(thread(start = false, block = task))
+}
