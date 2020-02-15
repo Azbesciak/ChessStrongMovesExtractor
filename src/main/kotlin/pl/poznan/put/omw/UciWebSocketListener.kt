@@ -11,6 +11,8 @@ class UciWebSocketListener(
 ) : WebSocketListener() {
     private companion object : KLogging() {
         const val MULTI_PV_PROP = "MultiPV"
+        const val SIDE_PROP = "Analysis Contempt"
+        const val SIDE_VALUE = "White"
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
@@ -37,14 +39,15 @@ class UciWebSocketListener(
 
     private fun setOptions(webSocket: WebSocket) {
         // https://github.com/official-stockfish/Stockfish
-        val options = when {
-            params.variationsNumber.wasSet -> engine.options + (MULTI_PV_PROP to params.variationsNumber.value)
-            engine.options[MULTI_PV_PROP]?.let { it.toIntOrNull()?.let { v -> v < 2 } } ?: true -> {
+        val options = engine.options.toMutableMap()
+        when {
+            params.variationsNumber.wasSet -> options[MULTI_PV_PROP] = params.variationsNumber.value.toString()
+            options[MULTI_PV_PROP]?.let { it.toIntOrNull()?.let { v -> v < 2 } } ?: true -> {
                 logger.error { "Invalid value was provided for engine options [$MULTI_PV_PROP]" }
-                engine.options + (MULTI_PV_PROP to params.variationsNumber.value)
+                options[MULTI_PV_PROP] = params.variationsNumber.value.toString()
             }
-            else -> engine.options
         }
+        options.computeIfAbsent(SIDE_PROP) { SIDE_VALUE }
         options.forEach { (option, value) ->
             webSocket.send("setoption name $option value $value")
         }
