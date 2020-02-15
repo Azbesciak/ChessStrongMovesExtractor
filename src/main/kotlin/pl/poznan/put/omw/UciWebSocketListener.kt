@@ -40,16 +40,22 @@ class UciWebSocketListener(
     private fun setOptions(webSocket: WebSocket) {
         // https://github.com/official-stockfish/Stockfish
         val options = engine.options.toMutableMap()
+        val originalMultiPV = options[MULTI_PV_PROP]
         when {
-            params.variationsNumber.wasSet -> options[MULTI_PV_PROP] = params.variationsNumber.value.toString()
-            options[MULTI_PV_PROP]?.let { it.toIntOrNull()?.let { v -> v < 2 } } ?: true -> {
-                logger.error { "Invalid value was provided for engine options [$MULTI_PV_PROP]" }
-                options[MULTI_PV_PROP] = params.variationsNumber.value.toString()
+            params.variationsNumber.wasSet -> updateMultiPvValueToUserPreference(options)
+            originalMultiPV == null -> updateMultiPvValueToUserPreference(options)
+            originalMultiPV.toIntOrNull()?.let { v -> v < 2 } ?: true -> {
+                logger.error { "Invalid value was provided for engine options [$MULTI_PV_PROP: $originalMultiPV]" }
+                updateMultiPvValueToUserPreference(options)
             }
         }
         options.computeIfAbsent(SIDE_PROP) { SIDE_VALUE }
         options.forEach { (option, value) ->
             webSocket.send("setoption name $option value $value")
         }
+    }
+
+    private fun updateMultiPvValueToUserPreference(options: MutableMap<String, String>) {
+        options[MULTI_PV_PROP] = params.variationsNumber.value.toString()
     }
 }
