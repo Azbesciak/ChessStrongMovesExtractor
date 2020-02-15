@@ -26,29 +26,33 @@ class UciServerConnector(
     private var engineStarted = false
     private var authResponse: AuthorizationResponse? = null
     private var connected = false
+    private var listener: UciWebSocketListener? = null
 
-    fun connect(): () -> Unit {
+    fun connect(): ConnectionManager {
         require(!connected) { "can connect only once" }
-        val onClose = try {
+        try {
             makeConnection()
         } catch (e: Throwable) {
             close()
             throw e
         }
-        return {
-            onClose()
+        return ConnectionManager(close = {
+            listener?.close()
+            listener = null
             close()
-        }
+        }, newGame = {
+            requireNotNull(listener) { "connection already closed" }
+            listener!!.newGame()
+        })
     }
 
-    private fun makeConnection(): () -> Unit {
+    private fun makeConnection() {
         client.logoutUser(true)
         authResponse = client.authorize()
         client.tryToCloseEngine(true)
         client.startEngine()
-        return client.manageWebSocket().also {
-            connected = true
-        }
+        client.manageWebSocket()
+        connected = true
     }
 
     private fun OkHttpClient.authorize(): AuthorizationResponse {
@@ -79,12 +83,11 @@ class UciServerConnector(
         }
     }
 
-    private fun OkHttpClient.manageWebSocket(): () -> Unit {
+    private fun OkHttpClient.manageWebSocket() {
         val request = request(WEBSOCKET_PATH)
-        val listener = UciWebSocketListener(uciServerConfig.engine, programParams)
-        newWebSocket(request, listener)
+        listener = UciWebSocketListener(uciServerConfig.engine, programParams)
+        newWebSocket(request, listener!!)
         dispatcher.executorService.shutdown()
-        return { listener.close() }
     }
 
     private fun close() {
@@ -150,3 +153,8 @@ class UciServerConnector(
     private inline fun <reified T> T.toRequest(serializer: SerializationStrategy<T>, json: Json) =
             json.stringify(serializer, this).toRequestBody(JSON_MEDIA_TYPE)
 }
+
+class ConnectionManager(
+        val close: () -> Unit,
+        val newGame: () -> GameConnection
+)

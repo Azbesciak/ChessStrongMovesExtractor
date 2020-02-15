@@ -13,10 +13,17 @@ class UciWebSocketListener(
         const val MULTI_PV_PROP = "MultiPV"
         const val SIDE_PROP = "Analysis Contempt"
         const val SIDE_VALUE = "White"
+
+        private class MessagesConsumer(
+                val id: Long,
+                val fenPosition: String,
+                val onMessage: (String) -> Unit
+        )
     }
 
-    private var isReady = false
+    private var gameState = GameState()
     private var ws: WebSocket? = null
+    private var messagesConsumer: MessagesConsumer? = null
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
         logger.info("socket closed: ($code) $reason")
@@ -33,11 +40,22 @@ class UciWebSocketListener(
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        if (text == "readyok") {
-            isReady = true
-            return
-        } else if (!isReady) return
-        logger.info("message: $text")
+        logger.debug { "state: $gameState, message: $text" }
+        when {
+            text == "readyok" -> {
+                gameState.isReady = true
+                messagesConsumer?.let {
+                    if (it.id == gameState.moveId) {
+                        webSocket.send("position fen ${it.fenPosition}")
+                        webSocket.send("go depth ${params.engineDepth}")
+                    }
+                }
+                return
+            }
+            !gameState.isReady || messagesConsumer == null -> return
+            messagesConsumer?.id != gameState.moveId -> return
+        }
+        messagesConsumer!!.onMessage(text)
     }
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
@@ -45,6 +63,33 @@ class UciWebSocketListener(
         ws = webSocket
         setOptions()
         startNewConversation()
+    }
+
+    fun newGame(): GameConnection {
+        requireNotNull(ws) { "uci web socket is not available" }
+        gameState.newGame()
+        ws?.run {
+            messagesConsumer = null
+            send("ucinewgame")
+            startNewConversation()
+        }
+        val thisGameId = gameState.gameId
+        return GameConnection(
+                gameId = thisGameId,
+                nextPosition = { position, callback ->
+                    if (gameState.gameId != thisGameId) return@GameConnection
+                    ws?.run {
+                        messagesConsumer = MessagesConsumer(gameState.newMove(), position, callback)
+                        startNewConversation()
+                    }
+                },
+                close = {
+                    if (gameState.gameId != thisGameId) return@GameConnection
+                    gameState.newGame()
+                    messagesConsumer = null
+                    startNewConversation()
+                }
+        )
     }
 
     private fun setOptions() {
@@ -71,7 +116,7 @@ class UciWebSocketListener(
     private fun startNewConversation() {
         ws?.run {
             send("stop")
-            isReady = false
+            gameState.isReady = false
             send("isready")
         }
     }
@@ -83,7 +128,7 @@ class UciWebSocketListener(
     override fun close() {
         ws?.runCatching {
             send("quit")
-            isReady = false
+            gameState.isReady = false
             closeWs()
         }
     }
@@ -93,5 +138,28 @@ class UciWebSocketListener(
             close(1006, null)
             ws = null
         }
+    }
+}
+
+class GameConnection(
+        val gameId: Long,
+        val nextPosition: (positionCommand: String, responseCallback: (String) -> Unit) -> Unit,
+        val close: () -> Unit
+)
+
+private data class GameState(
+        var isReady: Boolean = false,
+        var gameId: Long = 0,
+        var moveId: Long = 0
+) {
+    fun newGame(): Long {
+        ++moveId
+        isReady = false
+        return ++gameId
+    }
+
+    fun newMove(): Long {
+        isReady = false
+        return ++moveId
     }
 }

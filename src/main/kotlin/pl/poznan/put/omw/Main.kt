@@ -15,8 +15,8 @@ fun main(args: Array<String>) = ProgramExecutor {
     println(uciServerConfig)
     println(mainPathMovesGame)
     UciServerConnector(client, json, uciServerConfig, this).run {
-        val close = connect()
-        registerCloseTask { close() }
+        val connectionManager = connect()
+        registerCloseTask { connectionManager.close() }
     }
 }.main(args)
 
