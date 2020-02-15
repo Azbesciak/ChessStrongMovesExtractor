@@ -13,25 +13,31 @@ class UciServerConnector(
         private val json: Json,
         private val uciServerConfig: UciServerConfig,
         private val programParams: Params
-) {
+) : AutoCloseable {
     private companion object : KLogging() {
         val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
         const val AUTH_PATH = "/user/login"
         const val ENGINE_START_PATH = "/engine/start"
+        const val ENGINE_STOP_PATH = "/engine/stop"
         const val WEBSOCKET_PATH = "/ws_engine"
     }
 
+    private var engineStarted = false
+    private var authResponse: AuthorizationResponse? = null
+    private var connected = false
+
     fun connect() {
-        val authResult = client.authorize(uciServerConfig, json)
-        client.startEngine(uciServerConfig, authResult, json)
-        client.manageWebSocket(uciServerConfig, authResult)
+        require(!connected) { "can connect only once" }
+        authResponse = client.authorize()
+        client.startEngine()
+        client.manageWebSocket()
     }
 
-    private fun OkHttpClient.authorize(uciServerConfig: UciServerConfig, json: Json): AuthorizationResponse {
+    private fun OkHttpClient.authorize(): AuthorizationResponse {
         val credentials = Credentials(uciServerConfig.login, uciServerConfig.password)
         val body = credentials.toRequest(Credentials.serializer(), json)
-        val request = request {
-            url(uciServerConfig.url + AUTH_PATH).post(body)
+        val request = request(AUTH_PATH) {
+            post(body)
         }
         return execute(request) {
             val authResult = json.parse(AuthorizationResponse.serializer(), it)
@@ -40,15 +46,13 @@ class UciServerConnector(
         }
     }
 
-    private fun OkHttpClient.startEngine(uciServerConfig: UciServerConfig, authResult: AuthorizationResponse, json: Json) {
+    private fun OkHttpClient.startEngine() {
         val body = EngineStartCommand(uciServerConfig.engine.name).toRequest(EngineStartCommand.serializer(), json)
-        val request = request {
-            url(uciServerConfig.url + ENGINE_START_PATH)
-                    .auth(authResult)
-                    .post(body)
+        val request = request(ENGINE_START_PATH) {
+            post(body)
         }
         return execute(request) {
-            val startResult = json.parse(EngineStartCommandResponse.serializer(), it)
+            val startResult = json.parse(EngineManageCommandResponse.serializer(), it)
             require(startResult.success) {
                 val info = if (startResult.info.isNotBlank()) ": ${startResult.info}" else ""
                 "Could not start engine$info"
@@ -65,8 +69,12 @@ class UciServerConnector(
                 onResponse(requireNotNull(it.body).string())
             }
 
-    private fun request(builder: Request.Builder.() -> Request.Builder) =
-            Request.Builder().builder().build()
+    private fun request(path: String, builder: (Request.Builder.() -> Request.Builder)? = null) =
+            Request.Builder()
+                    .url(uciServerConfig.url + path)
+                    .run { builder?.let { it() } ?: this }
+                    .run { authResponse?.let { auth(it) } ?: this }
+                    .build()
 
     private fun Request.Builder.auth(authResult: AuthorizationResponse) =
             header("Authorization", "Bearer ${authResult.token}")
@@ -74,12 +82,22 @@ class UciServerConnector(
     private inline fun <reified T> T.toRequest(serializer: SerializationStrategy<T>, json: Json) =
             json.stringify(serializer, this).toRequestBody(JSON_MEDIA_TYPE)
 
-    private fun OkHttpClient.manageWebSocket(uciServerConfig: UciServerConfig, authResult: AuthorizationResponse) {
-        val request = request {
-            url(uciServerConfig.url + WEBSOCKET_PATH).auth(authResult)
-        }
+    private fun OkHttpClient.manageWebSocket() {
+        val request = request(WEBSOCKET_PATH)
         val listener = UciWebSocketListener(uciServerConfig.engine, programParams)
         newWebSocket(request, listener)
         dispatcher.executorService.shutdown()
+    }
+
+    override fun close() {
+        if (!engineStarted) return
+        try {
+            val req = request(ENGINE_STOP_PATH)
+            client.execute(req) {
+                logger.info { "engine close response: $it" }
+            }
+        } catch (t: Throwable) {
+            logger.error(t) { "could not gracefully close UciServerConnector" }
+        }
     }
 }

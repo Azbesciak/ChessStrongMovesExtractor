@@ -20,7 +20,7 @@ data class EngineStartCommand(
 )
 
 @Serializable
-data class EngineStartCommandResponse(
+data class EngineManageCommandResponse(
         val success: Boolean,
         val info: String
 )

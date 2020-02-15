@@ -13,8 +13,9 @@ fun main(args: Array<String>) = ProgramExecutor {
     val uciServerConfig = readServerConfig(json)
     println(uciServerConfig)
     println(mainPathMovesGame)
-    val connector = UciServerConnector(client, json, uciServerConfig, this)
-    connector.connect()
+    UciServerConnector(client, json, uciServerConfig, this).use {
+        it.connect()
+    }
 }.main(args)
 
 private fun Params.readServerConfig(json: Json) =
