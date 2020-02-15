@@ -46,6 +46,7 @@ dependencies {
     compile 'io.github.microutils:kotlin-logging:1.5.4'
     implementation("com.github.ajalt:clikt:2.3.0")
     compile files('libs/pgn-reader.jar')
+    implementation "org.slf4j:slf4j-log4j12:1.7.30"
     implementation(
             "io.ktor:ktor-client-cio:$ktor_version",
             "io.ktor:ktor-client-json:$ktor_version",
