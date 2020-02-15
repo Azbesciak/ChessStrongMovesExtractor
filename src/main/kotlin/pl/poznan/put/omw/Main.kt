@@ -17,6 +17,12 @@ fun main(args: Array<String>) = ProgramExecutor {
     UciServerConnector(client, json, uciServerConfig, this).run {
         val connectionManager = connect()
         registerCloseTask { connectionManager.close() }
+        mainPathMovesGame.forEach {
+            val gameConnection = connectionManager.newGame()
+            val player = GamePlayer(it, gameConnection)
+            player.play()
+            gameConnection.close()
+        }
     }
 }.main(args)
 
