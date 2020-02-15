@@ -11,7 +11,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class UciServerConnector(
         private val client: OkHttpClient,
         private val json: Json,
-        private val uciServerConfig: UciServerConfig
+        private val uciServerConfig: UciServerConfig,
+        private val programParams: Params
 ) {
     private companion object : KLogging() {
         val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
@@ -77,7 +78,7 @@ class UciServerConnector(
         val request = request {
             url(uciServerConfig.url + WEBSOCKET_PATH).auth(authResult)
         }
-        val listener = UciWebSocketListener(uciServerConfig.engine)
+        val listener = UciWebSocketListener(uciServerConfig.engine, programParams)
         newWebSocket(request, listener)
         dispatcher.executorService.shutdown()
     }

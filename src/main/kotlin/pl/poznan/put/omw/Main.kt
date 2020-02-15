@@ -13,7 +13,7 @@ fun main(args: Array<String>) = ProgramExecutor {
     val uciServerConfig = readServerConfig(json)
     println(uciServerConfig)
     println(mainPathMovesGame)
-    val connector = UciServerConnector(client, json, uciServerConfig)
+    val connector = UciServerConnector(client, json, uciServerConfig, this)
     connector.connect()
 }.main(args)
 

@@ -6,9 +6,12 @@ import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 
 class UciWebSocketListener(
-        private val engine: UciServerEngine
+        private val engine: UciServerEngine,
+        private val params: Params
 ) : WebSocketListener() {
-    private companion object : KLogging()
+    private companion object : KLogging() {
+        const val MULTI_PV_PROP = "MultiPV"
+    }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
         logger.info("socket closed: ($code) $reason")
@@ -29,10 +32,21 @@ class UciWebSocketListener(
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
         logger.info("socket opened with response $response")
-        engine.options.forEach { (option, value) ->
+        setOptions(webSocket)
+    }
+
+    private fun setOptions(webSocket: WebSocket) {
+        // https://github.com/official-stockfish/Stockfish
+        val options = when {
+            params.variationsNumber.wasSet -> engine.options + (MULTI_PV_PROP to params.variationsNumber.value)
+            engine.options[MULTI_PV_PROP]?.let { it.toIntOrNull()?.let { v -> v < 2 } } ?: true -> {
+                logger.error { "Invalid value was provided for engine options [$MULTI_PV_PROP]" }
+                engine.options + (MULTI_PV_PROP to params.variationsNumber.value)
+            }
+            else -> engine.options
+        }
+        options.forEach { (option, value) ->
             webSocket.send("setoption name $option value $value")
         }
-        webSocket.send("position fen r4rk1/pp5p/2p2ppB/3pP3/2P2Q2/P1N2P2/1q4PP/n4R1K w - - 0 21")
-        webSocket.send("go depth 30")
     }
 }
