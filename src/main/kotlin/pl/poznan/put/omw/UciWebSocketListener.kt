@@ -15,6 +15,7 @@ class UciWebSocketListener(
         const val SIDE_VALUE = "White"
     }
 
+    private var isReady = false
     private var ws: WebSocket? = null
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
@@ -24,7 +25,7 @@ class UciWebSocketListener(
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
         logger.info("closing socket: ($code) $reason")
-        webSocket.close(100, null)
+        closeWs()
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
@@ -32,18 +33,23 @@ class UciWebSocketListener(
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
+        if (text == "readyok") {
+            isReady = true
+            return
+        } else if (!isReady) return
         logger.info("message: $text")
     }
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
         logger.info("socket opened with response $response")
-        setOptions(webSocket)
+        ws = webSocket
+        setOptions()
+        startNewConversation()
     }
 
-    private fun setOptions(webSocket: WebSocket) {
+    private fun setOptions() {
         // https://github.com/official-stockfish/Stockfish
         // http://wbec-ridderkerk.nl/html/UCIProtocol.html
-        ws = webSocket
         val options = engine.options.toMutableMap()
         val originalMultiPV = options[MULTI_PV_PROP]
         when {
@@ -55,8 +61,18 @@ class UciWebSocketListener(
             }
         }
         options.computeIfAbsent(SIDE_PROP) { SIDE_VALUE }
-        options.forEach { (option, value) ->
-            webSocket.send("setoption name $option value $value")
+        ws?.run {
+            options.forEach { (option, value) ->
+                send("setoption name $option value $value")
+            }
+        }
+    }
+
+    private fun startNewConversation() {
+        ws?.run {
+            send("stop")
+            isReady = false
+            send("isready")
         }
     }
 
@@ -67,6 +83,14 @@ class UciWebSocketListener(
     override fun close() {
         ws?.runCatching {
             send("quit")
+            isReady = false
+            closeWs()
+        }
+    }
+
+    private fun closeWs() {
+        ws?.runCatching {
+            close(1006, null)
             ws = null
         }
     }
