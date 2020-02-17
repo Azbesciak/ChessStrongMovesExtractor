@@ -155,8 +155,3 @@ class UciServerConnector(
     private inline fun <reified T> T.toRequest(serializer: SerializationStrategy<T>, json: Json) =
             json.stringify(serializer, this).toRequestBody(JSON_MEDIA_TYPE)
 }
-
-class ConnectionManager(
-        val close: () -> Unit,
-        val newGame: () -> GameConnection
-)
