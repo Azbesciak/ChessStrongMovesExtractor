@@ -20,9 +20,10 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
     // How many moves from pgn should be checked
     private val movesToCheck = 10
 
-    fun play() {
+    fun play(): List<EngineResult> {
         val chess = ObservableChessGame()
         var moveCounter = 0
+        val result = ArrayList<EngineResult>()
 
         chess.addObserver { o, arg ->
             if (arg != ObservableChessGame.ACTION_NEW_MOVE) return@addObserver
@@ -43,6 +44,7 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                             // should be only for this position BUT need to wait for the end
                             // engine is sequential, without id or something like this - new request cancels this one
                             logger.info("received response message for move $moveCounter: $it")
+                            result.add(EngineResult(nextFen, it))
                             if (counter > maxBestMovesFromEngine) {
                                 logger.debug("closing move response for move $moveCounter: $nextFen")
                                 cancellation()
@@ -59,6 +61,7 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
         val sanMoveMaker = SANMoveMaker(chess, possibleMovesProvider)
         sanMoveMaker.processMoves(game.entities)
         println("EXITING!")
+        return result
     }
 
     // translate from pan to FEN

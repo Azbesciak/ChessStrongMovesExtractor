@@ -6,6 +6,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import mu.KLogging
 import okhttp3.OkHttpClient
+import pl.poznan.put.omw.filters.CustomMoveFilter
+import pl.poznan.put.omw.filters.MoveFilter
+import pl.poznan.put.omw.filters.NotMinorCaptureMoveFilter
+import pl.poznan.put.omw.filters.NotRecaptureMoveFilter
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
@@ -17,6 +21,11 @@ fun main(args: Array<String>) = ProgramExecutor {
     val client = OkHttpClient()
     val json = Json(JsonConfiguration.Stable)
     val uciServerConfig = readServerConfig(json)
+    val filters = arrayListOf<MoveFilter>(
+            NotRecaptureMoveFilter(centipawns),
+            NotMinorCaptureMoveFilter(centipawns),
+            CustomMoveFilter(centipawns)
+    )
     println(uciServerConfig)
     println(mainPathMovesGame)
     UciServerConnector(client, json, uciServerConfig, this).run {
@@ -26,8 +35,9 @@ fun main(args: Array<String>) = ProgramExecutor {
                     logger.logger.debug("STARTING NEW GAME ($i)")
                     val gameConnection = newGame()
                     val player = GamePlayer(game, gameConnection)
-                    player.play()
+                    val result = player.play()
                     gameConnection.close()
+                    val interestingMoves = GameFilter(result, filters).filterInterestingMoves()
                     logger.logger.debug("GAME $i CLOSING!")
                 }
                 logger.logger.info("Processing finished")
