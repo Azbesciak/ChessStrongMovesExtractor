@@ -1,12 +1,17 @@
 package pl.poznan.put.omw
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
+import mu.KLogging
 import okhttp3.OkHttpClient
 import kotlin.concurrent.thread
+import kotlin.system.exitProcess
 
 
 fun main(args: Array<String>) = ProgramExecutor {
+    val logger = KLogging()
     val game = ChessBoardReader.getGames(inputPath)
     val mainPathMovesGame = VariantMovesFilter.filter(game)
     val client = OkHttpClient()
@@ -16,11 +21,17 @@ fun main(args: Array<String>) = ProgramExecutor {
     println(mainPathMovesGame)
     UciServerConnector(client, json, uciServerConfig, this).run {
         val closeConnection = connect { newGame ->
-            mainPathMovesGame.forEach {
-                val gameConnection = newGame()
-                val player = GamePlayer(it, gameConnection)
-                player.play()
-                gameConnection.close()
+            GlobalScope.launch {
+                mainPathMovesGame.forEachIndexed { i, game ->
+                    logger.logger.debug("STARTING NEW GAME ($i)")
+                    val gameConnection = newGame()
+                    val player = GamePlayer(game, gameConnection)
+                    player.play()
+                    gameConnection.close()
+                    logger.logger.debug("GAME $i CLOSING!")
+                }
+                logger.logger.info("Processing finished")
+                exitProcess(0)
             }
         }
         registerCloseTask { closeConnection() }
