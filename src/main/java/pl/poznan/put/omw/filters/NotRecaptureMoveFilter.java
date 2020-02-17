@@ -6,7 +6,7 @@ package pl.poznan.put.omw.filters;
 public class NotRecaptureMoveFilter implements MoveFilter {
 
     @Override
-    public boolean match(String FEN, String move) {
+    public boolean match(String FEN, String move, int cpDifference) {
         // TODO
         return false;
     }
