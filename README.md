@@ -9,4 +9,20 @@
 You need to execute fat jar build task with gradle - `./gradlew shadowJar` in main project dir.
 Result will lend in `build/libs` and be named like `strong-moves-extract-<version>.jar`.
 
-You may also use build & run script `strong-moves-extract`; then you should specify `JAVA_HOME` and 
+You may also use build & run script `strong-moves-extract`; then you should specify `JAVA_HOME`.
+
+## Running
+To run a program one needs to specify input and output paths as well as configuration file.
+Input path is the path to the `pgn` file, output path indicates output pgn file. Both paths may be relative or absolute.
+By default there is one default configuration file `defaultConfig.json` that mainly contains server's connection
+configuration.
+
+To run the program with the default configuration specify the following command line arguments:
+```
+src/main/resources/pgn/pgn.pgn output.pgn -e defaultConfig.json
+```
+where
+`src/main/resources/pgn/pgn.pgn` is the input path, `output.pgn` is the output path and `-e defaultConfig.json` is the
+default configuration file.
+
+Other command line arguments are available by setting `--help` argument.
