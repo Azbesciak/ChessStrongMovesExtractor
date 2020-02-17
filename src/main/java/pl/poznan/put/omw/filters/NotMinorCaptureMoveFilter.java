@@ -8,10 +8,14 @@ import com.github.bhlangonijr.chesslib.move.MoveList;
 /**
  * The best move is not just a capture by a minor piece, leading to material advantage.
  */
-public class NotMinorCaptureMoveFilter implements MoveFilter {
+public class NotMinorCaptureMoveFilter extends BasicMoveFilter {
+
+    public NotMinorCaptureMoveFilter(int cpDifference) {
+        super(cpDifference);
+    }
 
     @Override
-    public boolean match(String FEN, String move, int cpDifference) throws MoveConversionException {
+    public boolean match(String FEN, String move) throws MoveConversionException {
         // TODO
         boolean isCapture = true;
         if (isCapture) {

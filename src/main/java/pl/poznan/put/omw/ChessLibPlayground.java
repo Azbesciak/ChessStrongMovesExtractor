@@ -51,7 +51,6 @@ public class ChessLibPlayground {
             case PAWN:
                 return 100;
             case KNIGHT:
-                return 300;
             case BISHOP:
                 return 300;
             case KING:
