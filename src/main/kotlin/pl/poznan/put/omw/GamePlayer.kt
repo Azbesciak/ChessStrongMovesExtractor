@@ -5,6 +5,8 @@ import chess.parser.ObservableChessGame
 import chess.parser.PossibleMovesProviderImpl
 import chess.parser.SANMoveMaker
 import chess.parser.pgn.PGNGame
+import com.github.bhlangonijr.chesslib.Board
+import com.github.bhlangonijr.chesslib.move.MoveList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import mu.KLogging
@@ -27,19 +29,29 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
             println("STILL PROCESSING...")
             if (moveCounter >= exampleFenMoves.size) return@addObserver
             val pan = ChessGameUtils.getChessGameMovesAsPAN((o as ObservableChessGame).chessGame)
+            // translate from pan to FEN
+            val board = Board()
+            val moves = MoveList()
+            moves.loadFromSan(pan)
+            for (move in moves) {
+                board.doMove(move)
+            }
+            val fen = board.fen
+            println("FEN: " + fen)
+
             runBlocking {
                 val result = suspendCoroutine<Boolean> { continuation ->
                     var counter = 0
                     launch {
-                        val move = exampleFenMoves[moveCounter]
-                        logger.debug("sending move $move")
+                        val move = fen //exampleFenMoves[moveCounter]
+                        logger.debug("sending move in FEN: $move")
                         lateinit var cancellation: Cancellation
                         cancellation = gameConnection.nextPosition(move) {
                             // here comes engine response
                             // should be only for this position BUT need to wait for the end
                             // engine is sequential, without id or something like this - new request cancels this one
                             logger.info("received response message for move $moveCounter: $it")
-                            if (counter > 5) {
+                            if (counter > 15) { // TODO adjust how many massages to consume in order to get all best moves and their centipawns
                                 logger.debug("closing move response for move $moveCounter: $move")
                                 cancellation()
                                 continuation.resumeWith(Result.success(true))
