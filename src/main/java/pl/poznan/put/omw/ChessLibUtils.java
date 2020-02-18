@@ -3,12 +3,13 @@ package pl.poznan.put.omw;
 import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.Piece;
 import com.github.bhlangonijr.chesslib.PieceType;
+import com.github.bhlangonijr.chesslib.Side;
 import com.github.bhlangonijr.chesslib.move.MoveConversionException;
 import com.github.bhlangonijr.chesslib.move.MoveList;
 
 import java.util.Arrays;
 
-public class ChessLibPlayground {
+public class ChessLibUtils {
 
     public static void main(String args[]) throws MoveConversionException {
         // Creates a new chessboard in the standard initial position
@@ -17,7 +18,10 @@ public class ChessLibPlayground {
 
         board.loadFromFen(fen);
 
-        String san = "g4";
+        String san = "g4"; // "g5"
+        System.out.println(isMoveACapture(board, san));
+        System.out.println(isMoveACapture(board, san));
+        System.out.println(ChessLibUtils.getOpponentMaterialDifferenceAfterMove(board, san));
 
         MoveList moves = new MoveList();
         moves.loadFromSan(san);
@@ -27,7 +31,46 @@ public class ChessLibPlayground {
         System.out.println(getWhiteMaterialSum(board));
         System.out.println(getBlackMaterialSum(board));
         System.out.println(board.getFen());
+    }
 
+    /**
+     * Gets material sum of the opponent.
+     *
+     * @param board board before move
+     * @return material sum of the opponent
+     */
+    public static int getOpponentMaterialBeforeMove(Board board) {
+        Side side = board.getSideToMove();
+        if (side == Side.BLACK) {
+            return getWhiteMaterialSum(board);
+        } else {
+            return getBlackMaterialSum(board);
+        }
+    }
+
+    /**
+     * Gets material sum of the opponent after move.
+     *
+     * @param board board before move
+     * @return material sum aterial sum of the opponent after move
+     */
+    public static int getOpponentMaterialAfterMove(Board board, String move) throws MoveConversionException {
+        Side side = board.getSideToMove();
+        MoveList moves = new MoveList();
+        moves.loadFromSan(move);
+        board.doMove(moves.get(0));
+        int afterMoveOppponentMaterial;
+        if (side == Side.BLACK) {
+            afterMoveOppponentMaterial = getWhiteMaterialSum(board);
+        } else {
+            afterMoveOppponentMaterial = getBlackMaterialSum(board);
+        }
+        board.undoMove(); // undo move so state of the board is not changed
+        return afterMoveOppponentMaterial;
+    }
+
+    public static int getOpponentMaterialDifferenceAfterMove(Board board, String move) throws MoveConversionException {
+        return getOpponentMaterialBeforeMove(board) - getOpponentMaterialAfterMove(board, move);
     }
 
     public static int getWhiteMaterialSum(Board board) {
@@ -44,6 +87,10 @@ public class ChessLibPlayground {
         return Arrays.stream(pieces).map(piece ->
                 board.getPieceLocation(piece).size() * getValueFromPiece(piece.getPieceType())
         ).mapToInt(Integer::intValue).sum();
+    }
+
+    public static boolean isMoveACapture(Board board, String move) throws MoveConversionException {
+        return getOpponentMaterialDifferenceAfterMove(board, move) > 0;
     }
 
     public static int getValueFromPiece(PieceType piece) {
