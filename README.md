@@ -17,12 +17,16 @@ Input path is the path to the `pgn` file, output path indicates output pgn file.
 By default there is one default configuration file `defaultConfig.json` that mainly contains server's connection
 configuration.
 
-To run the program with the default configuration specify the following command line arguments:
+Assuming that [UCI server](http://www.cs.put.poznan.pl/mszelag/Software/software.html) is up and running to
+run the program with the default configuration one should specify the following command line arguments:
 ```
 src/main/resources/pgn/pgn.pgn output.pgn -e defaultConfig.json
 ```
 where
 `src/main/resources/pgn/pgn.pgn` is the input path, `output.pgn` is the output path and `-e defaultConfig.json` is the
 default configuration file.
+
+If the server is running locally `defaultConfig.json` should be fine. To connect with the external server,
+adjust the config file appropriately.
 
 Other command line arguments are available by setting `--help` argument.
