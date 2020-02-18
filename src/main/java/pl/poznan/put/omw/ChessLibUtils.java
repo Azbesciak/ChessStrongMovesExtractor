@@ -4,6 +4,7 @@ import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.Piece;
 import com.github.bhlangonijr.chesslib.PieceType;
 import com.github.bhlangonijr.chesslib.Side;
+import com.github.bhlangonijr.chesslib.move.Move;
 import com.github.bhlangonijr.chesslib.move.MoveConversionException;
 import com.github.bhlangonijr.chesslib.move.MoveList;
 
@@ -14,18 +15,29 @@ public class ChessLibUtils {
     public static void main(String args[]) throws MoveConversionException {
         // Creates a new chessboard in the standard initial position
         Board board = new Board();
-        String fen = "8/p5Q1/2ppq2p/3n1ppk/3B4/2P2P1P/P5P1/6K1 w - - 3 46";
+        // String fen = "8/p5Q1/2ppq2p/3n1ppk/3B4/2P2P1P/P5P1/6K1 w - - 3 46";
 
+        String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         board.loadFromFen(fen);
 
-        String san = "g4"; // "g5"
+
+        // działa, format SAN/PAN standardowa notacja szachowa
+        String san = "Nc3"; // "g5"
+        MoveList moves = new MoveList();
+        moves.loadFromSan(san);
+        board.doMove(moves.get(0));
+        board.undoMove();
+
+        // dziala, format skad-dokad, format od stockfisha/serwera uci
+        Move move = new Move("b1c3", board.getSideToMove());
+        board.doMove(move);
+        board.undoMove();
+
         System.out.println(isMoveACapture(board, san));
         System.out.println(isMoveACapture(board, san));
         System.out.println(ChessLibUtils.getOpponentMaterialDifferenceAfterMove(board, san));
 
-        MoveList moves = new MoveList();
-        moves.loadFromSan(san);
-        board.doMove(moves.get(0));
+
 
 
         System.out.println(getWhiteMaterialSum(board));
