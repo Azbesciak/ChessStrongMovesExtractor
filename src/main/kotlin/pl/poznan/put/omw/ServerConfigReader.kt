@@ -18,6 +18,23 @@ data class UciServerConfig(
         val engine: UciServerEngine
 )
 
+/**
+ * Reads UCI server configuration. Expected format is JSON like:
+ * {
+ *   "url": "http://localhost:8080",
+ *   "login": "test",
+ *   "password": "111111",
+ *   "engine": {
+ *     "name": "Stockfish 10 x64",
+ *     "options": {
+ *       "Threads": "4",
+ *       "Hash": "1024"
+ *     }
+ *   }
+ * }
+ * where options are UCI engine options.
+ * As example you can refer to https://github.com/official-stockfish/Stockfish
+ */
 class ServerConfigReader(private val json: Json) {
     infix fun read(path: String) = File(path).run {
         require(exists()) {

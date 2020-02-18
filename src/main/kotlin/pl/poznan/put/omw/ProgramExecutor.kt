@@ -18,6 +18,11 @@ object ProgramDefaults {
     const val uciServerConfigPath = "uciServer.json"
 }
 
+/**
+ * Interface for input arguments.
+ * All arguments are specified as fields.
+ * You can also see whole help by calling the program with --help flag.
+ */
 class ProgramExecutor(private val task: Params.() -> Unit) : CliktCommand(name = "strong-moves-extract") {
     private val headerTypes by option(
             help = HeaderType.headersHelp,

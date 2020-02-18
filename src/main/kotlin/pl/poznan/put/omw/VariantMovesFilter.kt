@@ -5,6 +5,9 @@ import chess.parser.VariantBegin
 import chess.parser.VariantEnd
 import chess.parser.pgn.PGNGame
 
+/**
+ * Removes all moves not from the main path.
+ */
 object VariantMovesFilter {
     fun filter(games: List<PGNGame>) = games.map {
         PGNGame(it.meta, it.entities.filterVariantMoves()).apply {

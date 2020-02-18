@@ -5,6 +5,18 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 
+/**
+ * Sends and listens for messages from uci websocker.
+ * The main concepts are GAME and MOVE.
+ * GAME contains MOVES.
+ *
+ * After successful connection engine settings are send.
+ * Worth to notice is that whether OPTION MultiPV is passed via program argument,
+ * and also present in server config, the one passed via argument wins (lowest allowed value is 2 in both cases).
+ *
+ * To integrate you need to call `newGame` method, which is the only you should use to communicate.
+ * To shutdown connection, you should call `close`
+ */
 class UciWebSocketListener(
         private val engine: UciServerEngine,
         private val params: Params,
@@ -76,6 +88,11 @@ class UciWebSocketListener(
         onReady()
     }
 
+    /**
+     * Method to start new game scope.
+     * When called, previous game is broken (only one game is possible at the same time).
+     * @return Game management callbacks [GameConnection]
+     */
     fun newGame(): GameConnection {
         requireNotNull(ws) { "uci web socket is not available" }
         gameState.newGame()
@@ -166,6 +183,12 @@ class UciWebSocketListener(
     }
 }
 
+/**
+ * @param gameId id of the game. The higher, the later game.
+ * @param nextPosition callback to request for new position predictions.
+ *        As the first argument you ought to pass fen, as the second you pass callback on the new predictions (server responses).
+ * @param close action to call when you finish processing moves of this game.
+ */
 class GameConnection(
         val gameId: Long,
         val nextPosition: (positionCommand: String, responseCallback: (String) -> Unit) -> Cancellation,

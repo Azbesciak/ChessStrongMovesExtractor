@@ -8,6 +8,11 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 
+/**
+ * Connector with UCI server.
+ * It is stateful - once used should not be used again.
+ * To connect you should call the only public method: connect
+ */
 class UciServerConnector(
         private val client: OkHttpClient,
         private val json: Json,
@@ -28,6 +33,11 @@ class UciServerConnector(
     private var connected = false
     private var listener: UciWebSocketListener? = null
 
+    /**
+     * Connects with the server.
+     * @param onUciConnection callback called when UCI websocket connection is ready to use.
+     * @return disconnect callback, which should be called after usage is finished.
+     */
     fun connect(onUciConnection: (newGame: ()-> GameConnection) -> Unit): () -> Unit {
         require(!connected) { "can connect only once" }
         try {
