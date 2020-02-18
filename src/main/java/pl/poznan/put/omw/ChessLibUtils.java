@@ -33,6 +33,19 @@ public class ChessLibUtils {
         System.out.println(board.getFen());
     }
 
+    public static boolean isMaterialAdvantageAfterMove(Board board, String move) throws MoveConversionException {
+        return getMyMaterial(board) > getOpponentMaterialAfterMove(board, move);
+    }
+
+    public static int getMyMaterial(Board board) {
+        Side side = board.getSideToMove();
+        if (side == Side.WHITE) {
+            return getWhiteMaterialSum(board);
+        } else {
+            return getBlackMaterialSum(board);
+        }
+    }
+
     /**
      * Gets material sum of the opponent.
      *

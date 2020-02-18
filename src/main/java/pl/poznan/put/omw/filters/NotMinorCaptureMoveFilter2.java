@@ -7,12 +7,11 @@ import pl.poznan.put.omw.ChessLibUtils;
 /**
  * The best move is not just a capture by a minor piece, leading to material advantage.
  * <p>
- * First interpretation: Ruch to nie jest bicie, które daje przewagę wynikającą z tego bicia
- * (nie jest biciem albo jest biciem, które daje lepszą ocenę niż wynika z materialu utraconego przez przeciwnika w trakcie bicia)
+ * Second interpretation: Ruch to nie jest bicie piona, które prowadzi do przewagi materiału
  */
-public class NotMinorCaptureMoveFilter extends BasicMoveFilter {
+public class NotMinorCaptureMoveFilter2 extends BasicMoveFilter {
 
-    public NotMinorCaptureMoveFilter(int cpDifference) {
+    public NotMinorCaptureMoveFilter2(int cpDifference) {
         super(cpDifference);
     }
 
@@ -23,10 +22,11 @@ public class NotMinorCaptureMoveFilter extends BasicMoveFilter {
         boolean isCapture = ChessLibUtils.isMoveACapture(board, move);
         if (isCapture) {
             int opponentMaterialDifference = ChessLibUtils.getOpponentMaterialDifferenceAfterMove(board, move);
-            if (cpDifference > opponentMaterialDifference * 2) { // TODO what exactly MINOR means?
-                return true;
-            } else {
+            if (opponentMaterialDifference == 100 // bicie piona
+                    && ChessLibUtils.isMaterialAdvantageAfterMove(board, move)) { // jest przewaga materialu po biciu
                 return false;
+            } else {
+                return true;
             }
         } else {
             return true;
