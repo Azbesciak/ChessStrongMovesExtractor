@@ -15,7 +15,7 @@ public class CustomMoveFilter extends BasicMoveFilter {
     }
 
     @Override
-    public boolean match(String FEN, String move) throws MoveConversionException {
+    public boolean match(String FEN, String uciMove) throws MoveConversionException {
         return false;
     }
 }

@@ -36,9 +36,9 @@ public class ChessLibUtils {
 
 
 
-        System.out.println(isMoveACapture(board, san));
-        System.out.println(isMoveACapture(board, san));
-        System.out.println(ChessLibUtils.getOpponentMaterialDifferenceAfterMove(board, san));
+        System.out.println(isMoveACapture(board, moveFromSAN));
+        System.out.println(isMoveACapture(board, moveFromSAN));
+        System.out.println(ChessLibUtils.getOpponentMaterialDifferenceAfterMove(board, moveFromSAN));
 
 
 
@@ -48,7 +48,7 @@ public class ChessLibUtils {
         System.out.println(board.getFen());
     }
 
-    public static boolean isMaterialAdvantageAfterMove(Board board, String move) throws MoveConversionException {
+    public static boolean isMaterialAdvantageAfterMove(Board board, Move move) throws MoveConversionException {
         return getMyMaterial(board) > getOpponentMaterialAfterMove(board, move);
     }
 
@@ -82,11 +82,9 @@ public class ChessLibUtils {
      * @param board board before move
      * @return material sum aterial sum of the opponent after move
      */
-    public static int getOpponentMaterialAfterMove(Board board, String move) throws MoveConversionException {
+    public static int getOpponentMaterialAfterMove(Board board, Move move) throws MoveConversionException {
         Side side = board.getSideToMove();
-        MoveList moves = new MoveList();
-        moves.loadFromSan(move);
-        board.doMove(moves.get(0));
+        board.doMove(move);
         int afterMoveOppponentMaterial;
         if (side == Side.BLACK) {
             afterMoveOppponentMaterial = getWhiteMaterialSum(board);
@@ -97,7 +95,7 @@ public class ChessLibUtils {
         return afterMoveOppponentMaterial;
     }
 
-    public static int getOpponentMaterialDifferenceAfterMove(Board board, String move) throws MoveConversionException {
+    public static int getOpponentMaterialDifferenceAfterMove(Board board, Move move) throws MoveConversionException {
         return getOpponentMaterialBeforeMove(board) - getOpponentMaterialAfterMove(board, move);
     }
 
@@ -117,7 +115,7 @@ public class ChessLibUtils {
         ).mapToInt(Integer::intValue).sum();
     }
 
-    public static boolean isMoveACapture(Board board, String move) throws MoveConversionException {
+    public static boolean isMoveACapture(Board board, Move move) throws MoveConversionException {
         return getOpponentMaterialDifferenceAfterMove(board, move) > 0;
     }
 

@@ -5,10 +5,9 @@ import com.github.bhlangonijr.chesslib.move.MoveGeneratorException;
 
 public interface MoveFilter {
     /**
-     *
      * @param FEN
-     * @param move
+     * @param uciMove
      * @return
      */
-    boolean match(String FEN, String move) throws MoveConversionException, MoveGeneratorException;
+    boolean match(String FEN, String uciMove) throws MoveConversionException, MoveGeneratorException;
 }

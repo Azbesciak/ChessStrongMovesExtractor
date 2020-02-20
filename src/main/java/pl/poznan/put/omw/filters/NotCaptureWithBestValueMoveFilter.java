@@ -14,14 +14,12 @@ public class NotCaptureWithBestValueMoveFilter extends BasicMoveFilter {
     }
 
     @Override
-    public boolean match(String FEN, String move) throws MoveConversionException, MoveGeneratorException {
+    public boolean match(String FEN, String uciMove) throws MoveConversionException, MoveGeneratorException {
         Board board = new Board();
         board.loadFromFen(FEN);
         MoveList legalMoves = MoveGenerator.generateLegalMoves(board);
 
-        MoveList moves = new MoveList();
-        moves.loadFromSan(move);
-        Move playedMove = moves.get(0);
+        Move playedMove = ChessLibUtils.getMoveFromUCI(board, uciMove);
         // TODO finish this
         return true;
 
