@@ -35,12 +35,9 @@ public class ChessLibUtils {
         System.out.println(getMoveToUCI(moveFromUCI));
 
 
-
         System.out.println(isMoveACapture(board, moveFromSAN));
         System.out.println(isMoveACapture(board, moveFromSAN));
         System.out.println(ChessLibUtils.getOpponentMaterialDifferenceAfterMove(board, moveFromSAN));
-
-
 
 
         System.out.println(getWhiteMaterialSum(board));
@@ -85,14 +82,14 @@ public class ChessLibUtils {
     public static int getOpponentMaterialAfterMove(Board board, Move move) throws MoveConversionException {
         Side side = board.getSideToMove();
         board.doMove(move);
-        int afterMoveOppponentMaterial;
+        int afterMoveOpponentMaterial;
         if (side == Side.BLACK) {
-            afterMoveOppponentMaterial = getWhiteMaterialSum(board);
+            afterMoveOpponentMaterial = getWhiteMaterialSum(board);
         } else {
-            afterMoveOppponentMaterial = getBlackMaterialSum(board);
+            afterMoveOpponentMaterial = getBlackMaterialSum(board);
         }
         board.undoMove(); // undo move so state of the board is not changed
-        return afterMoveOppponentMaterial;
+        return afterMoveOpponentMaterial;
     }
 
     public static int getOpponentMaterialDifferenceAfterMove(Board board, Move move) throws MoveConversionException {

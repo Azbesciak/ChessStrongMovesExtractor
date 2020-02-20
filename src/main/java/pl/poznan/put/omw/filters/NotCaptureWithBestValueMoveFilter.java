@@ -20,12 +20,15 @@ public class NotCaptureWithBestValueMoveFilter extends BasicMoveFilter {
         MoveList legalMoves = MoveGenerator.generateLegalMoves(board);
 
         Move playedMove = ChessLibUtils.getMoveFromUCI(board, uciMove);
-        // TODO finish this
-        return true;
+        int playedDifference = ChessLibUtils.getOpponentMaterialDifferenceAfterMove(board, playedMove);
 
-//        for(Move legalMove : legalMoves) {
-//            ChessLibUtils.getOpponentMaterialDifferenceAfterMove(FEN, move);
-//        }
+        for(Move legalMove : legalMoves) {
+            int difference = ChessLibUtils.getOpponentMaterialDifferenceAfterMove(board, legalMove);
+            if (playedDifference <= difference) {
+                return true;
+            }
+        }
 
+        return false;
     }
 }
