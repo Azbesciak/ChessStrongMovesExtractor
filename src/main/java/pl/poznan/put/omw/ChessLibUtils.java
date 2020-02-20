@@ -23,15 +23,18 @@ public class ChessLibUtils {
 
         // działa, format SAN/PAN standardowa notacja szachowa
         String san = "Nc3"; // "g5"
-        MoveList moves = new MoveList();
-        moves.loadFromSan(san);
-        board.doMove(moves.get(0));
-        board.undoMove();
+        Move moveFromSAN = getMoveFromSAN(san);
+        System.out.println(getMoveToSAN(moveFromSAN));
+        System.out.println(getMoveToUCI(moveFromSAN));
+
 
         // dziala, format skad-dokad, format od stockfisha/serwera uci
-        Move move = new Move("b1c3", board.getSideToMove());
-        board.doMove(move);
-        board.undoMove();
+        String uci = "d2d4";
+        Move moveFromUCI = getMoveFromUCI(board, uci);
+        System.out.println(getMoveToSAN(moveFromUCI));
+        System.out.println(getMoveToUCI(moveFromUCI));
+
+
 
         System.out.println(isMoveACapture(board, san));
         System.out.println(isMoveACapture(board, san));
@@ -134,5 +137,26 @@ public class ChessLibUtils {
             default:
                 return 0;
         }
+    }
+
+    public static Move getMoveFromSAN(String sanMove) throws MoveConversionException {
+        MoveList moves = new MoveList();
+        moves.loadFromSan(sanMove);
+        return moves.get(0);
+    }
+
+    public static Move getMoveFromUCI(Board board, String uciMove) throws MoveConversionException {
+        return new Move(uciMove, board.getSideToMove());
+    }
+
+    public static String getMoveToSAN(Move move) throws MoveConversionException {
+        MoveList sanList = new MoveList();
+        sanList.add(move);
+        String[] sanRepresentation = sanList.toSanArray();
+        return sanRepresentation[0];
+    }
+
+    public static String getMoveToUCI(Move move) {
+        return move.toString();
     }
 }
