@@ -11,7 +11,6 @@ import com.github.ajalt.clikt.parameters.options.transformAll
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.int
-import java.lang.StringBuilder
 
 object ProgramDefaults {
     val headerTypes = HeaderType.MINIMAL
