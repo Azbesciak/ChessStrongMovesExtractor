@@ -1,6 +1,8 @@
 package pl.poznan.put.omw
 
 
+import chess.parser.pgn.Meta
+import chess.parser.pgn.PGNGame
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.options.default
@@ -9,6 +11,7 @@ import com.github.ajalt.clikt.parameters.options.transformAll
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.int
+import java.lang.StringBuilder
 
 object ProgramDefaults {
     val headerTypes = HeaderType.MINIMAL
@@ -16,6 +19,32 @@ object ProgramDefaults {
     const val engineDepth = 30
     const val variationsNumber = 2
     const val uciServerConfigPath = "uciServer.json"
+}
+
+object ProgramHelpers {
+    fun formatHeader(type: HeaderType, game: PGNGame): String {
+        val headers = StringBuilder()
+
+        val formatHeaderEntry: (Meta) -> String = { item: Meta -> "[${item.key}: ${item.value}]\n" }
+
+        if (type == HeaderType.CONCISE) {
+            val conciseHeaders = arrayListOf("White", "Black", "Site", "Date")
+            game.meta.forEach {
+                if (it.key in conciseHeaders) {
+                    headers.append(formatHeaderEntry(it))
+                }
+            }
+        }
+
+        if (type == HeaderType.ALL) {
+            game.meta.forEach {
+                headers.append(formatHeaderEntry(it))
+            }
+        }
+
+        return headers.toString()
+    }
+
 }
 
 /**

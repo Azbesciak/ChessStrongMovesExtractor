@@ -37,6 +37,7 @@ fun main(args: Array<String>) = ProgramExecutor {
                     val resultsFilter = GameFilter(result, filters)
                     val interestingMoves = resultsFilter.filterInterestingMoves()
                     val bestTwo = resultsFilter.getNBestResults(10)
+                    val header = ProgramHelpers.formatHeader(headerTypes, game)
                     logger.logger.debug("GAME $i CLOSING!")
                 }
                 logger.logger.info("Processing finished")
