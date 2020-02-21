@@ -1,9 +1,6 @@
 package pl.poznan.put.omw;
 
-import com.github.bhlangonijr.chesslib.Board;
-import com.github.bhlangonijr.chesslib.Piece;
-import com.github.bhlangonijr.chesslib.PieceType;
-import com.github.bhlangonijr.chesslib.Side;
+import com.github.bhlangonijr.chesslib.*;
 import com.github.bhlangonijr.chesslib.move.Move;
 import com.github.bhlangonijr.chesslib.move.MoveConversionException;
 import com.github.bhlangonijr.chesslib.move.MoveList;
@@ -124,6 +121,22 @@ public class ChessLibUtils {
     public static boolean isMoveACapture(Board board, Move move) throws MoveConversionException {
         return getOpponentMaterialDifferenceAfterMove(board, move) > 0;
     }
+
+    public static boolean didKingMove(Board board, Move move) {
+        Side side = board.getSideToMove();
+        Square kingPosBefore = board.getKingSquare(side);
+        board.doMove(move);
+        Square kingPosAfter = board.getKingSquare(side);
+        board.undoMove();
+        if (kingPosAfter != kingPosBefore) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+//    public static int getKingNeighbours(Board board) {
+//    }
 
     public static int getValueFromPiece(PieceType piece) {
         switch (piece) {

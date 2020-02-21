@@ -6,10 +6,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import mu.KLogging
 import okhttp3.OkHttpClient
-import pl.poznan.put.omw.filters.CustomMoveFilter
-import pl.poznan.put.omw.filters.MoveFilter
-import pl.poznan.put.omw.filters.NotMinorCaptureMoveFilter
-import pl.poznan.put.omw.filters.NotRecaptureMoveFilter
+import pl.poznan.put.omw.filters.*
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
@@ -22,9 +19,9 @@ fun main(args: Array<String>) = ProgramExecutor {
     val json = Json(JsonConfiguration.Stable)
     val uciServerConfig = readServerConfig(json)
     val filters = arrayListOf<MoveFilter>(
+           // NotMinorCaptureMoveFilter(centipawns),
             NotRecaptureMoveFilter(centipawns),
-            NotMinorCaptureMoveFilter(centipawns),
-            CustomMoveFilter(centipawns)
+            NotSimpleDefendFilter(centipawns)
     )
     println(uciServerConfig)
     println(mainPathMovesGame)
