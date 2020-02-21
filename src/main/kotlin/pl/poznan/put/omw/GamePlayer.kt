@@ -15,8 +15,6 @@ import kotlin.coroutines.suspendCoroutine
 class GamePlayer(private val game: PGNGame, private val gameConnection: GameConnection) {
     private companion object : KLogging()
 
-    // TODO adjust how many messages to consume in order to get all best moves and their centipawns
-    private val moveResponsesFromServerNumber = 1000
     // How many moves from pgn should be checked
     private val movesToCheck = 10
 
@@ -27,7 +25,6 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
 
         chess.addObserver { o, arg ->
             if (arg != ObservableChessGame.ACTION_NEW_MOVE) return@addObserver
-            // print(".")
             if (moveCounter >= movesToCheck) return@addObserver
 
             val pan = ChessGameUtils.getChessGameMovesAsPAN((o as ObservableChessGame).chessGame)
@@ -62,9 +59,9 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                             }
 
 
-                            // when received moveResponsesFromServerNumber moves from the engine or the current response
+                            //when the current response
                             // is bestmove then close the connection
-                            if (counter > moveResponsesFromServerNumber || responseType == ResultType.BestMove) {
+                            if (responseType == ResultType.BestMove) {
                                 logger.debug("closing move response for move $moveCounter: $nextFen")
                                 cancellation()
                                 continuation.resumeWith(Result.success(true))
