@@ -6,6 +6,7 @@ import chess.parser.PossibleMovesProviderImpl
 import chess.parser.SANMoveMaker
 import chess.parser.pgn.PGNGame
 import com.github.bhlangonijr.chesslib.Board
+import com.github.bhlangonijr.chesslib.move.MoveConversionException
 import com.github.bhlangonijr.chesslib.move.MoveList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -16,7 +17,8 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
     private companion object : KLogging()
 
     // How many moves from pgn should be checked
-    private val movesToCheck = 10
+    // some of game.entities are not moves, so this the max number of moves
+    private val movesToCheck = game.entities.size
 
     fun play(maxDepth: Int): List<EngineResult> {
         val chess = ObservableChessGame()
@@ -27,20 +29,16 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
             if (arg != ObservableChessGame.ACTION_NEW_MOVE) return@addObserver
             if (moveCounter >= movesToCheck) return@addObserver
 
-            val pan = ChessGameUtils.getChessGameMovesAsPAN((o as ObservableChessGame).chessGame)
-            val nextFen = getFenFromMoves(pan)
+            val pan = ChessGameUtils.getChessGameMovesAsPAN((o as ObservableChessGame).chessGame) ?: return@addObserver
+            val nextFen = getFenFromMoves(pan) ?: return@addObserver
 
             runBlocking {
                 suspendCoroutine<Boolean> { continuation ->
                     var counter = 0
                     launch {
-                        logger.debug("sending move in FEN: $nextFen")
+                        logger.debug("sending move $pan in FEN: $nextFen")
                         lateinit var cancellation: Cancellation
                         cancellation = gameConnection.nextPosition(nextFen) {
-                            // here comes engine response
-                            // should be only for this position BUT need to wait for the end
-                            // engine is sequential, without id or something like this - new request cancels this one
-
                             val responseType = EngineResult.getReponseType(it)
                             val responseDepth = EngineResult.getResponseDepth(it)
 
@@ -83,9 +81,14 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
     // translate from pan to FEN
     private fun getFenFromMoves(pan: String) =
             Board().let {
-                Board().clear()
                 val moves = MoveList()
-                moves.loadFromSan(pan)
+                try {
+                    moves.loadFromSan(pan)
+                } catch(e: MoveConversionException)
+                {
+                    return null
+                }
+
                 moves.forEach { move ->
                     it.doMove(move)
                 }
