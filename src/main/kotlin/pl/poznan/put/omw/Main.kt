@@ -37,18 +37,17 @@ fun main(args: Array<String>) = ProgramExecutor {
                     val result = player.play(engineDepth)
                     gameConnection.close()
                     val resultsFilter = GameFilter(result, filters)
-                    // nie wiem skąd się bierze ten parametr depth xd
-                    val interestingMoves = resultsFilter.filterInterestingMoves(3)
+                    val interestingMoves = resultsFilter.filterInterestingMoves(engineDepth)
 
-                    val GameMoveList = PgnToStockfish.getSanList(game) //prosta lista sanów do sprawdzania czy ruch był zagrany
+//                    val GameMoveList = PgnToStockfish.getSanList(game)
                     val UclMoveList = PgnToStockfish.getStockfishFormat(game)
                     val groupedGameVariationList = OutputPosition.createGameVariationList(interestingMoves
-                            as ArrayList<EngineResult>?, UclMoveList); // chciałem tego kotlina na klasy Oliwii zamienić, ale i tak
+                            as ArrayList<EngineResult>?, UclMoveList);
                     val finalGameVariationList = OutputPosition.setBestAndFlatten(groupedGameVariationList)
-                    val outputPosition = OutputPosition("????", finalGameVariationList)
+                    val outputPosition = OutputPosition(result.last().fen, finalGameVariationList)
                     println(outputPosition.toString())
-                    // nie wiem jak zrobić konwersję na san
                     val header = ProgramHelpers.formatHeader(headerTypes, game)
+                    Saver.save(outputPath, header, result.last().fen, finalGameVariationList)
                     logger.logger.debug("GAME $i CLOSING!")
                 }
                 logger.logger.info("Processing finished")
