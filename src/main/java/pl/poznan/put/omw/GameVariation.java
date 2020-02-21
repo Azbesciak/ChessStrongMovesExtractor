@@ -9,6 +9,11 @@ public class GameVariation {
     String sanMoveRepresentation;
     boolean wasPlayed;
     boolean isBestMove;
+
+    public int getIndex() {
+        return index;
+    }
+
     int index;
     int centipawns;
 
@@ -24,14 +29,14 @@ public class GameVariation {
     public GameVariation(String uciMove, int id, int centipawns, String fen, ArrayList<String> sanList) throws MoveConversionException {
         Board board = new Board();
         board.loadFromFen(fen);
-        this.sanMoveRepresentation = ChessLibUtils.getSANFromUCI(fen, uciMove);
+        //   this.sanMoveRepresentation = ChessLibUtils.getSANFromUCI(fen, uciMove);
         this.index = id;
         this.centipawns = centipawns;
-        if (sanList.get(id) == this.sanMoveRepresentation) {
-            this.wasPlayed = true;
-        } else {
-            this.wasPlayed = false;
-        }
+//        if (sanList.get(id) == this.sanMoveRepresentation) {
+//            this.wasPlayed = true;
+//        } else {
+//            this.wasPlayed = false;
+//        }
     }
 
     @Override

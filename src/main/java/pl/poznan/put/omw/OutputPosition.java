@@ -4,7 +4,10 @@ import com.github.bhlangonijr.chesslib.move.MoveConversionException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class OutputPosition {
 
@@ -23,13 +26,15 @@ public class OutputPosition {
                 gameVariations.stream().map(gameVariation -> gameVariation.toString()).collect(Collectors.joining(" "));
     }
 
-    public static ArrayList<GameVariation> createGameVariationList(ArrayList<EngineResult> results, ArrayList<String> sanList) throws MoveConversionException {
+    public static Map<Integer, List<GameVariation>> createGameVariationList(ArrayList<EngineResult> results, ArrayList<String> sanList) throws MoveConversionException {
         ArrayList<GameVariation> variations = new ArrayList<>();
         for (EngineResult eResult : results) {
             GameVariation v = new GameVariation(eResult.getMoves().get(0), eResult.getMoveID(), eResult.getCentipaws(),
                     eResult.getFen(), sanList);
             variations.add(v);
         }
-        return variations;
+        Map<Integer, List<GameVariation>> groupedVariations = variations.stream()
+                .collect(groupingBy(GameVariation::getIndex));
+        return groupedVariations;
     }
 }
