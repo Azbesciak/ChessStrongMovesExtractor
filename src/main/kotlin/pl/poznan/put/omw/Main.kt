@@ -41,8 +41,12 @@ fun main(args: Array<String>) = ProgramExecutor {
                     val interestingMoves = resultsFilter.filterInterestingMoves(3)
 
                     val GameMoveList = PgnToStockfish.getSanList(game) //prosta lista sanów do sprawdzania czy ruch był zagrany
+                    val UclMoveList = PgnToStockfish.getStockfishFormat(game)
                     val groupedGameVariationList = OutputPosition.createGameVariationList(interestingMoves
-                            as ArrayList<EngineResult>?, GameMoveList); // chciałem tego kotlina na klasy Oliwii zamienić, ale i tak
+                            as ArrayList<EngineResult>?, UclMoveList); // chciałem tego kotlina na klasy Oliwii zamienić, ale i tak
+                    val finalGameVariationList = OutputPosition.setBestAndFlatten(groupedGameVariationList)
+                    val outputPosition = OutputPosition("????", finalGameVariationList)
+                    println(outputPosition.toString())
                     // nie wiem jak zrobić konwersję na san
                     val header = ProgramHelpers.formatHeader(headerTypes, game)
                     logger.logger.debug("GAME $i CLOSING!")

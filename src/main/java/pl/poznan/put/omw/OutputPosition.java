@@ -37,4 +37,15 @@ public class OutputPosition {
                 .collect(groupingBy(GameVariation::getIndex));
         return groupedVariations;
     }
+
+    public static ArrayList<GameVariation> setBestAndFlatten(Map<Integer, List<GameVariation>> results) {
+        ArrayList<GameVariation> output = new ArrayList<>();
+        for (List<GameVariation> nRes : results.values()) {
+            nRes.get(0).setBestMove(true);
+            for (GameVariation g : nRes) {
+                output.add(g);
+            }
+        }
+        return output;
+    }
 }
