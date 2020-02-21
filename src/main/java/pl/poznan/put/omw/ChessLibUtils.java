@@ -51,10 +51,22 @@ public class ChessLibUtils {
         System.out.println(outputPosition.toString());
     }
 
+    /**
+     *
+     * @param board board object
+     * @param move move object
+     * @return true if my material is bigger than opponent's material after move
+     * @throws MoveConversionException
+     */
     public static boolean isMaterialAdvantageAfterMove(Board board, Move move) throws MoveConversionException {
         return getMyMaterial(board) > getOpponentMaterialAfterMove(board, move);
     }
 
+    /**
+     *
+     * @param board board object
+     * @return value of my material (all my figure values sum in centipawns)
+     */
     public static int getMyMaterial(Board board) {
         Side side = board.getSideToMove();
         if (side == Side.WHITE) {
@@ -83,7 +95,7 @@ public class ChessLibUtils {
      * Gets material sum of the opponent after move.
      *
      * @param board board before move
-     * @return material sum aterial sum of the opponent after move
+     * @return material sum of the opponent after move
      */
     public static int getOpponentMaterialAfterMove(Board board, Move move) throws MoveConversionException {
         Side side = board.getSideToMove();
@@ -98,26 +110,56 @@ public class ChessLibUtils {
         return afterMoveOpponentMaterial;
     }
 
+    /**
+     *
+     * @param board board object
+     * @param move move object
+     * @return difference in centipawns in opponent's material after my move
+     * @throws MoveConversionException
+     */
     public static int getOpponentMaterialDifferenceAfterMove(Board board, Move move) throws MoveConversionException {
         return getOpponentMaterialBeforeMove(board) - getOpponentMaterialAfterMove(board, move);
     }
 
+    /**
+     *
+     * @param board board object
+     * @return white side material sum
+     */
     public static int getWhiteMaterialSum(Board board) {
         Piece[] whitePieces = {Piece.WHITE_PAWN, Piece.WHITE_KNIGHT, Piece.WHITE_BISHOP, Piece.WHITE_ROOK, Piece.WHITE_QUEEN, Piece.WHITE_KING};
         return getMaterialSum(whitePieces, board);
     }
 
+    /**
+     *
+     * @param board board object
+     * @return black material sum
+     */
     public static int getBlackMaterialSum(Board board) {
         Piece[] blackPieces = {Piece.BLACK_PAWN, Piece.BLACK_KNIGHT, Piece.BLACK_BISHOP, Piece.BLACK_ROOK, Piece.BLACK_QUEEN, Piece.BLACK_KING};
         return getMaterialSum(blackPieces, board);
     }
 
-    public static int getMaterialSum(Piece[] pieces, Board board) {
+    /**
+     *
+     * @param pieces all pieces to take into account
+     * @param board board object
+     * @return material sum got from all the pieces
+     */
+    private static int getMaterialSum(Piece[] pieces, Board board) {
         return Arrays.stream(pieces).map(piece ->
                 board.getPieceLocation(piece).size() * getValueFromPiece(piece.getPieceType())
         ).mapToInt(Integer::intValue).sum();
     }
 
+    /**
+     *
+     * @param  board board object
+     * @param move move object
+     * @return true if move was a capture
+     * @throws MoveConversionException
+     */
     public static boolean isMoveACapture(Board board, Move move) throws MoveConversionException {
         return getOpponentMaterialDifferenceAfterMove(board, move) > 0;
     }
@@ -138,7 +180,12 @@ public class ChessLibUtils {
 //    public static int getKingNeighbours(Board board) {
 //    }
 
-    public static int getValueFromPiece(PieceType piece) {
+    /**
+     *
+     * @param piece piece type like king or knight
+     * @return piece value in centipawns
+     */
+    private static int getValueFromPiece(PieceType piece) {
         switch (piece) {
             case PAWN:
                 return 100;
@@ -156,16 +203,35 @@ public class ChessLibUtils {
         }
     }
 
+    /**
+     *
+     * @param sanMove move in san notation like in example Nf1
+     * @return move object
+     * @throws MoveConversionException
+     */
     public static Move getMoveFromSAN(String sanMove) throws MoveConversionException {
         MoveList moves = new MoveList();
         moves.loadFromSan(sanMove);
         return moves.get(0);
     }
 
+    /**
+     *
+     * @param board board object
+     * @param uciMove move in UCI notation like in example c1c2
+     * @return move object
+     * @throws MoveConversionException
+     */
     public static Move getMoveFromUCI(Board board, String uciMove) throws MoveConversionException {
         return new Move(uciMove, board.getSideToMove());
     }
 
+    /**
+     *
+     * @param move move object
+     * @return move in san notation like in example Nf1
+     * @throws MoveConversionException
+     */
     public static String getMoveToSAN(Move move) throws MoveConversionException {
         MoveList sanList = new MoveList();
         sanList.add(move);
@@ -173,10 +239,22 @@ public class ChessLibUtils {
         return sanRepresentation[0];
     }
 
+    /**
+     *
+     * @param move move object
+     * @return move in UCI notation like in example c1c2
+     */
     public static String getMoveToUCI(Move move) {
         return move.toString();
     }
 
+    /**
+     * Converts move in UCI notation to SAN notation
+     * @param FEN FEN board notation
+     * @param uciMove move in UCI notation like in example c1c2
+     * @return move in san notation like in example Kc2
+     * @throws MoveConversionException
+     */
     public static String getSANFromUCI(String FEN, String uciMove) throws MoveConversionException {
         Board board = new Board();
         board.loadFromFen(FEN);

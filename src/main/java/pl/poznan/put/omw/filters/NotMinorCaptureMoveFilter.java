@@ -8,7 +8,7 @@ import pl.poznan.put.omw.ChessLibUtils;
 /**
  * The best move is not just a capture by a minor piece, leading to material advantage.
  * <p>
- * Second interpretation: Ruch to nie jest bicie piona, które prowadzi do przewagi materiału
+ * Interpretation: Ruch to nie jest bicie piona, które prowadzi do przewagi materiału
  */
 public class NotMinorCaptureMoveFilter extends BasicMoveFilter {
     @Override
