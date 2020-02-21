@@ -9,19 +9,24 @@ class GameFilter(private val engineResult: List<EngineResult>,
 
         engineResult.forEach { result ->
             run {
-                var interestingMove = true
-                for (filter in filters) {
-                    for (move in result.moves) {
-                        if (!filter.match(result.fen, move)) {
-                            interestingMove = false
-                            break
-                        }
-                    }
-                    if(!interestingMove)
-                        break
-                }
-                if (interestingMove)
-                    interestingMoves.add(result)
+                // TODO implement filtering interesting moves
+                interestingMoves.add(result)
+//                var interestingMove = true
+//                for (filter in filters) {
+//                    val board = Board()
+//                    board.loadFromFen(result.fen)
+//
+//                    for (move in result.moves) {
+//                        if (!filter.match(result.fen, move)) {
+//                            interestingMove = false
+//                            break
+//                        }
+//                    }
+//                    if(!interestingMove)
+//                        break
+//                }
+//                if (interestingMove)
+//                    interestingMoves.add(result)
             }
         }
 

@@ -16,11 +16,11 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
     private companion object : KLogging()
 
     // TODO adjust how many messages to consume in order to get all best moves and their centipawns
-    private val maxBestMovesFromEngine = 15
+    private val moveResponsesFromServerNumber = 1000
     // How many moves from pgn should be checked
     private val movesToCheck = 10
 
-    fun play(): List<EngineResult> {
+    fun play(maxDepth: Int): List<EngineResult> {
         val chess = ObservableChessGame()
         var moveCounter = 0
         val result = ArrayList<EngineResult>()
@@ -43,9 +43,28 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                             // here comes engine response
                             // should be only for this position BUT need to wait for the end
                             // engine is sequential, without id or something like this - new request cancels this one
-                            logger.info("received response message for move $moveCounter: $it")
-                            result.add(EngineResult(nextFen, it))
-                            if (counter > maxBestMovesFromEngine) {
+
+                            val responseType = EngineResult.getReponseType(it)
+                            val responseDepth = EngineResult.getResponseDepth(it)
+
+                            when (responseType) {
+                                ResultType.Move ->
+                                {
+                                    if(responseDepth == maxDepth)
+                                        result.add(EngineResult(nextFen, it))
+                                }
+                                ResultType.BestMove -> result.add(EngineResult(nextFen, it, isBestMove = true))
+                            }
+
+                            if(responseType == ResultType.BestMove || responseType == ResultType.Move)
+                            {
+                                logger.info("received response message for move $moveCounter: $it")
+                            }
+
+
+                            // when received moveResponsesFromServerNumber moves from the engine or the current response
+                            // is bestmove then close the connection
+                            if (counter > moveResponsesFromServerNumber || responseType == ResultType.BestMove) {
                                 logger.debug("closing move response for move $moveCounter: $nextFen")
                                 cancellation()
                                 continuation.resumeWith(Result.success(true))
@@ -70,8 +89,8 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                 Board().clear()
                 val moves = MoveList()
                 moves.loadFromSan(pan)
-                moves.forEach {
-                    move -> it.doMove(move)
+                moves.forEach { move ->
+                    it.doMove(move)
                 }
                 // list all moves that created the fen
                 logger.debug("Moves: ${moves.toSan()}")

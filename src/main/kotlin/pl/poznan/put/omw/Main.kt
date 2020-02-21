@@ -35,7 +35,7 @@ fun main(args: Array<String>) = ProgramExecutor {
                     logger.logger.debug("STARTING NEW GAME ($i)")
                     val gameConnection = newGame()
                     val player = GamePlayer(game, gameConnection)
-                    val result = player.play()
+                    val result = player.play(engineDepth)
                     gameConnection.close()
                     val interestingMoves = GameFilter(result, filters).filterInterestingMoves()
                     logger.logger.debug("GAME $i CLOSING!")
