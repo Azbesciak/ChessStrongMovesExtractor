@@ -46,9 +46,9 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                                 ResultType.Move ->
                                 {
                                     if(responseDepth == maxDepth)
-                                        result.add(EngineResult(nextFen, it))
+                                        result.add(EngineResult(nextFen, it, moveCounter))
                                 }
-                                ResultType.BestMove -> result.add(EngineResult(nextFen, it, isBestMove = true))
+                                ResultType.BestMove -> result.add(EngineResult(nextFen, it, moveCounter, isBestMove = true))
                             }
 
                             if(responseType == ResultType.BestMove || responseType == ResultType.Move)

@@ -2,7 +2,7 @@ package pl.poznan.put.omw
 
 import java.lang.RuntimeException
 
-class EngineResult(val fen: String, val result: String, val isBestMove: Boolean = false)
+class EngineResult(val fen: String, val result: String, val moveID: Int, val isBestMove: Boolean = false)
 {
     val depth: Int
     val moves: List<String>
