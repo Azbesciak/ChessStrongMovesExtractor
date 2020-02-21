@@ -45,7 +45,6 @@ fun main(args: Array<String>) = ProgramExecutor {
                             as ArrayList<EngineResult>?, UclMoveList);
                     val finalGameVariationList = OutputPosition.setBestAndFlatten(groupedGameVariationList)
                     val outputPosition = OutputPosition(result.last().fen, finalGameVariationList)
-                    println(outputPosition.toString())
                     val header = ProgramHelpers.formatHeader(headerTypes, game)
                     Saver.save(outputPath, header, result.last().fen, finalGameVariationList)
                     logger.logger.debug("GAME $i CLOSING!")

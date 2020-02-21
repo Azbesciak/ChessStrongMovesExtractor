@@ -31,11 +31,8 @@ public class GameVariation {
         this.centipawns = centipawns;
     }
 
-    //TODO skąd wziąć SAN???
-    //póki co porównuje czy był ruch przy pomocy ucl
     public GameVariation(String uciMove, int id, int centipawns, String fen, ArrayList<String> sanList) throws MoveConversionException {
         this.uclMoveRepresentation = uciMove;
-        //chwilowe
         this.sanMoveRepresentation = uciMove;
         this.index = id;
         this.centipawns = centipawns;
