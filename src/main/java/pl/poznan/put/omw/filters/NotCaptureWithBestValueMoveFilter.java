@@ -9,10 +9,6 @@ import pl.poznan.put.omw.ChessLibUtils;
  */
 public class NotCaptureWithBestValueMoveFilter extends BasicMoveFilter {
 
-    public NotCaptureWithBestValueMoveFilter(int cpDifference) {
-        super(cpDifference);
-    }
-
     @Override
     public boolean match(String FEN, String uciMove) throws MoveConversionException, MoveGeneratorException {
         Board board = new Board();

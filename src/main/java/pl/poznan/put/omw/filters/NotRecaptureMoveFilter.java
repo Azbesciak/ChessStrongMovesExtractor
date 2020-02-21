@@ -10,10 +10,6 @@ import pl.poznan.put.omw.ChessLibUtils;
  */
 public class NotRecaptureMoveFilter extends BasicMoveFilter {
 
-    public NotRecaptureMoveFilter(int cpDifference) {
-        super(cpDifference);
-    }
-
     @Override
     public boolean match(String FEN, String uciMove) throws MoveConversionException {
         Board board = new Board();

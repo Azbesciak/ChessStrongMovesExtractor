@@ -19,9 +19,9 @@ fun main(args: Array<String>) = ProgramExecutor {
     val json = Json(JsonConfiguration.Stable)
     val uciServerConfig = readServerConfig(json)
     val filters = arrayListOf<MoveFilter>(
-           // NotMinorCaptureMoveFilter(centipawns),
-            NotRecaptureMoveFilter(centipawns),
-            NotSimpleDefendFilter(centipawns)
+           // NotMinorCaptureMoveFilter(),
+            NotRecaptureMoveFilter(),
+            NotSimpleDefendFilter()
     )
     println(uciServerConfig)
     println(mainPathMovesGame)
