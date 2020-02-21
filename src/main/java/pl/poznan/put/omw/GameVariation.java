@@ -1,5 +1,10 @@
 package pl.poznan.put.omw;
 
+import com.github.bhlangonijr.chesslib.Board;
+import com.github.bhlangonijr.chesslib.move.MoveConversionException;
+
+import java.util.ArrayList;
+
 public class GameVariation {
     String sanMoveRepresentation;
     boolean wasPlayed;
@@ -13,6 +18,20 @@ public class GameVariation {
         this.isBestMove = isBestMove;
         this.index = index;
         this.centipawns = centipawns;
+    }
+
+    //TODO skąd wziąć SAN???
+    public GameVariation(String uciMove, int id, int centipawns, String fen, ArrayList<String> sanList) throws MoveConversionException {
+        Board board = new Board();
+        board.loadFromFen(fen);
+        this.sanMoveRepresentation = ChessLibUtils.getSANFromUCI(fen, uciMove);
+        this.index = id;
+        this.centipawns = centipawns;
+        if (sanList.get(id) == this.sanMoveRepresentation) {
+            this.wasPlayed = true;
+        } else {
+            this.wasPlayed = false;
+        }
     }
 
     @Override
@@ -30,7 +49,7 @@ public class GameVariation {
         return centipawns >= 0 ? "+" + centipawns : String.valueOf(centipawns);
     }
 
-    private String getWasPlayedString(){
+    private String getWasPlayedString() {
         return wasPlayed ? "{G}" : "";
     }
 }

@@ -11,11 +11,11 @@ class GameFilter(private val engineResult: List<EngineResult>,
         }
     }
 
-    fun filterInterestingMoves(): List<EngineResult> {
+    fun filterInterestingMoves(depth: Int): List<EngineResult> {
         val interestingMoves = arrayListOf<EngineResult>()
 
         engineResult
-                .filter { it.isBestMove }
+                .filter { it.depth == depth }
                 .forEach {bestMove ->
                     run {
                         var matchesAllFilters = true
@@ -26,6 +26,7 @@ class GameFilter(private val engineResult: List<EngineResult>,
                             interestingMoves.add(bestMove)
                     }
                 }
+
 
         return interestingMoves
     }

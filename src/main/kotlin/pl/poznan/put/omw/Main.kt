@@ -6,7 +6,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import mu.KLogging
 import okhttp3.OkHttpClient
-import pl.poznan.put.omw.filters.*
+import pl.poznan.put.omw.filters.MoveFilter
+import pl.poznan.put.omw.filters.NotRecaptureMoveFilter
+import pl.poznan.put.omw.filters.NotSimpleDefendFilter
+import java.util.*
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
@@ -35,8 +38,14 @@ fun main(args: Array<String>) = ProgramExecutor {
                     val result = player.play(engineDepth)
                     gameConnection.close()
                     val resultsFilter = GameFilter(result, filters)
-                    val interestingMoves = resultsFilter.filterInterestingMoves()
-                    val bestTwo = resultsFilter.getNBestResults(10)
+                    // nie wiem skąd się bierze ten parametr depth xd
+                    val interestingMoves = resultsFilter.filterInterestingMoves(3)
+
+                    val GameMoveList = PgnToStockfish.getSanList(game) //prosta lista sanów do sprawdzania czy ruch był zagrany
+                    //     val movesByID = interestingMoves.groupBy { it.moveID}
+                    val GameVariationList = OutputPosition.createGameVariationList(interestingMoves
+                            as ArrayList<EngineResult>?, GameMoveList); // chciałem tego kotlina na klasy Oliwii zamienić, ale i tak
+                    // nie wiem jak zrobić konwersję na san
                     logger.logger.debug("GAME $i CLOSING!")
                 }
                 logger.logger.info("Processing finished")
