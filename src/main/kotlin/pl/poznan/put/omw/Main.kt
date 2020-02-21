@@ -34,7 +34,9 @@ fun main(args: Array<String>) = ProgramExecutor {
                     val player = GamePlayer(game, gameConnection)
                     val result = player.play(engineDepth)
                     gameConnection.close()
-                    val interestingMoves = GameFilter(result, filters).filterInterestingMoves()
+                    val resultsFilter = GameFilter(result, filters)
+                    val interestingMoves = resultsFilter.filterInterestingMoves()
+                    val bestTwo = resultsFilter.getNBestResults(10)
                     logger.logger.debug("GAME $i CLOSING!")
                 }
                 logger.logger.info("Processing finished")

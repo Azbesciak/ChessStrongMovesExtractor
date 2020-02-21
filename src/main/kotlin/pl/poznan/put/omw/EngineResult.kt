@@ -10,15 +10,12 @@ class EngineResult(val fen: String, val result: String, val isBestMove: Boolean 
 
     init {
         result.split(' ').let {
-            if(isBestMove)
-            {
+            if (isBestMove) {
                 depth = -1
                 centipaws = -1
                 moves = it.subList(1, 2)
-            }
-            else
-            {
-                if(it.size < 19)
+            } else {
+                if (it.size < 19)
                     throw RuntimeException("Wrong response from the server")
                 moves = it.subList(19, it.size)
                 centipaws = it[9].toInt()
@@ -26,6 +23,8 @@ class EngineResult(val fen: String, val result: String, val isBestMove: Boolean 
             }
         }
     }
+
+    fun getMove() = moves[0]
 
     companion object {
         fun getReponseType(response: String) : ResultType {
