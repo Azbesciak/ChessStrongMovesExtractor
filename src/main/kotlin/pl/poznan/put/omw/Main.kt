@@ -35,6 +35,27 @@ fun main(args: Array<String>) = ProgramExecutor {
                     val gameConnection = newGame()
                     val player = GamePlayer(game, gameConnection)
                     val result = player.play(engineDepth)
+                    // assign cp to bestmoves
+                    var lastBest = 0
+                    for (i in result.indices)
+                    {
+                        if (result[i].isBestMove)
+                        {
+                            // result with bestmove as the first move should be before bestmove in the result list
+                            for (j in i-1 downTo lastBest+1)
+                            {
+                                if(result[j].getMove() == result[i].getMove())
+                                {
+                                    // result with the same move as bestmove is found
+                                    // assign cp to bestmove
+                                    result[i].centipaws = result[j].centipaws
+                                    result[i].depth = result[j].depth
+                                    break
+                                }
+                            }
+                            lastBest = i
+                        }
+                    }
                     gameConnection.close()
                     val resultsFilter = GameFilter(result, filters)
                     val interestingMoves = resultsFilter.filterInterestingMoves(engineDepth)
