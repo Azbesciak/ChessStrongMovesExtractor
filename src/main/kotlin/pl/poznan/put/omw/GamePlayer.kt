@@ -48,10 +48,10 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                             when (responseType) {
                                 ResultType.Move -> {
                                     if (responseDepth == maxDepth)
-                                        result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter))
+                                        result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter, isWhitePlayerMove))
                                 }
                                 ResultType.BestMove -> {
-                                    result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter, isBestMove = true))
+                                    result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter, isWhitePlayerMove,  isBestMove = true))
                                     assignCPAndSecondBestmoveToBestmove(result, lastBestmoveIndex, isWhitePlayerMove)
                                     lastBestmoveIndex = result.size - 1
                                     // player changes

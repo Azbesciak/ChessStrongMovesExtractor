@@ -9,7 +9,7 @@ import java.lang.RuntimeException
  * moveID - moveID assigned based on the number of requests
  * isBestMove - should be assigned when recognized request as a bestmove
  */
-class EngineResult(val fen: String, private val movePlayedInGame: String, val result: String, val moveID: Int, val isBestMove: Boolean = false)
+class EngineResult(val fen: String, private val movePlayedInGame: String, val result: String, val moveID: Int, val isWhitePlayerPlaying: Boolean, val isBestMove: Boolean = false)
 {
     var depth: Int = -1
     val moves: List<String>
