@@ -31,6 +31,7 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
 
             val pan = ChessGameUtils.getChessGameMovesAsPAN((o as ObservableChessGame).chessGame) ?: return@addObserver
             val nextFen = getFenFromMoves(pan) ?: return@addObserver
+            val movePlayedInGame = pan.split(" ").last { it.isNotEmpty() }
 
             runBlocking {
                 suspendCoroutine<Boolean> { continuation ->
@@ -46,14 +47,14 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                                 ResultType.Move ->
                                 {
                                     if(responseDepth == maxDepth)
-                                        result.add(EngineResult(nextFen, it, moveCounter))
+                                        result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter))
                                 }
-                                ResultType.BestMove -> result.add(EngineResult(nextFen, it, moveCounter, isBestMove = true))
+                                ResultType.BestMove -> result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter, isBestMove = true))
                             }
 
                             if(responseType == ResultType.BestMove || responseType == ResultType.Move)
                             {
-                                logger.info("received response message for move $moveCounter: $it")
+                                logger.debug("received response message for move $moveCounter: $it")
                             }
 
 

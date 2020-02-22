@@ -2,11 +2,18 @@ package pl.poznan.put.omw
 
 import java.lang.RuntimeException
 
-class EngineResult(val fen: String, val result: String, val moveID: Int, val isBestMove: Boolean = false)
+/**
+ * fen - fen sent to a server
+ * movePlayedInGame - move that was played by the player based on the fen
+ * result - message received from the server
+ * moveID - moveID assigned based on the number of requests
+ * isBestMove - should be assigned when recognized request as a bestmove
+ */
+class EngineResult(val fen: String, private val movePlayedInGame: String, val result: String, val moveID: Int, val isBestMove: Boolean = false)
 {
-    val depth: Int
+    var depth: Int = -1
     val moves: List<String>
-    val centipaws: Int
+    var centipaws: Int = 0
 
     init {
         result.split(' ').let {
@@ -20,7 +27,7 @@ class EngineResult(val fen: String, val result: String, val moveID: Int, val isB
                 {
                     val keyIndex = it.indexOf(key)
                     if(keyIndex < 0)
-                        throw RuntimeException("Wrong response from the server")
+                        return 0 // TODO - some messages don't contain cp
                     return it[keyIndex+1].toInt()
                 }
 
@@ -44,6 +51,8 @@ class EngineResult(val fen: String, val result: String, val moveID: Int, val isB
      * Returns the first move in SAN format based on the specified fen.
      */
     fun getSANMove() = ChessLibUtils.getMoveToSAN(fen, getMove())
+
+    fun wasPlayedInGame() = getMove() == movePlayedInGame
 
     companion object {
         fun getReponseType(response: String) : ResultType {
