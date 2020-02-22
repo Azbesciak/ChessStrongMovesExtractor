@@ -20,8 +20,8 @@ public class ChessLibUtils {
 
 
         // działa, format SAN/PAN standardowa notacja szachowa
-        String san = "Nc3"; // "g5"
-        Move moveFromSAN = getMoveFromSAN(san);
+        String san = "e4"; // "g5"
+        Move moveFromSAN = getMoveFromSAN(fen, san);
         System.out.println(getMoveToSAN(fen, moveFromSAN));
         System.out.println(getMoveToUCI(moveFromSAN));
 
@@ -223,8 +223,8 @@ public class ChessLibUtils {
      * @return move object
      * @throws MoveConversionException
      */
-    public static Move getMoveFromSAN(String sanMove) throws MoveConversionException {
-        MoveList moves = new MoveList();
+    public static Move getMoveFromSAN(String fen, String sanMove) throws MoveConversionException {
+        MoveList moves = new MoveList(fen);
         moves.loadFromSan(sanMove);
         return moves.get(0);
     }
