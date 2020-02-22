@@ -33,6 +33,20 @@ public class ChessLibUtils {
         System.out.println(getMoveToUCI(moveFromUCI));
 
 
+        // UCI -> SAN for move from black perspective
+        String fen2 = "rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d3 0 1";
+        board.loadFromFen(fen2);
+        String uci2 = "e7e6";
+        Move moveFromUCI2 = getMoveFromUCI(board, uci2);
+        // System.out.println(getMoveToSAN(moveFromUCI2)) will throw an exception,
+        // because toSanArray() in getMoveToSAN uses default
+        // board, so it assumes that uci2 is the first move, it doesn't take into account fen2
+//        System.out.println(getMoveToSAN(moveFromUCI2));
+//        System.out.println(getMoveToUCI(moveFromUCI2));
+        // proper conversion
+        System.out.println(getSANFromUCI(fen2, uci2));
+        System.out.println(getMoveToUCI(moveFromUCI2));
+
         System.out.println(isMoveACapture(board, moveFromSAN));
         System.out.println(isMoveACapture(board, moveFromSAN));
         System.out.println(ChessLibUtils.getOpponentMaterialDifferenceAfterMove(board, moveFromSAN));
@@ -256,9 +270,11 @@ public class ChessLibUtils {
      * @throws MoveConversionException
      */
     public static String getSANFromUCI(String FEN, String uciMove) throws MoveConversionException {
-        Board board = new Board();
-        board.loadFromFen(FEN);
-        Move move = getMoveFromUCI(board, uciMove);
-        return getMoveToSAN(move);
+        Board b = new Board();
+        b.loadFromFen(FEN);
+        MoveList sanList = new MoveList(FEN);
+        sanList.add(getMoveFromUCI(b, uciMove));
+        String[] sanRepresentation = sanList.toSanArray();
+        return sanRepresentation[0];
     }
 }
