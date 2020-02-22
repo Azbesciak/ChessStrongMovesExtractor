@@ -15,7 +15,7 @@ class GameFilter(private val engineResult: List<EngineResult>,
         val interestingMoves = arrayListOf<EngineResult>()
 
         engineResult
-                .filter { it.depth == depth }
+                .filter { it.isBestMove && depth == it.depth}
                 .forEach {bestMove ->
                     run {
                         var matchesAllFilters = true
