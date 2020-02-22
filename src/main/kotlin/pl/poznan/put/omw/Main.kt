@@ -40,9 +40,11 @@ fun main(args: Array<String>) = ProgramExecutor {
                     val interestingMoves = resultsFilter.filterInterestingMoves(engineDepth, centipawns)
 
                     val finalGameVariationList = GameVariation.createGameVariationList(interestingMoves)
-                    val outputPosition = OutputPosition.createOutputPositions(finalGameVariationList)
-//                    val header = ProgramHelpers.formatHeader(headerTypes, game)
-//                    Saver.save(outputPath, header, result.last().fen, finalGameVariationList)
+                    val outputPosition =
+                            OutputPosition.createOutputPositions(finalGameVariationList)
+                                    .sortedBy { it.gameVariations.first().index }
+                    val header = ProgramHelpers.formatHeader(headerTypes, game)
+                    Saver.save(outputPath, header, outputPosition)
                     logger.logger.debug("GAME $i CLOSING!")
                 }
                 logger.logger.info("Processing finished")

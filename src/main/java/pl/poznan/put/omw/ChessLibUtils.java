@@ -27,7 +27,7 @@ public class ChessLibUtils {
 
 
         // dziala, format skad-dokad, format od stockfisha/serwera uci
-        String uci = "d2d4";
+        String uci = "e2e4";
         Move moveFromUCI = getMoveFromUCI(board, uci);
         System.out.println(getMoveToSAN(fen, moveFromUCI));
         System.out.println(getMoveToUCI(moveFromUCI));

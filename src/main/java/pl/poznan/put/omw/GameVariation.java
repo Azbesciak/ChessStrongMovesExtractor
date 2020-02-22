@@ -1,5 +1,6 @@
 package pl.poznan.put.omw;
 
+import com.github.bhlangonijr.chesslib.game.Game;
 import com.github.bhlangonijr.chesslib.move.MoveConversionException;
 import kotlin.Pair;
 

@@ -1,6 +1,10 @@
 package pl.poznan.put.omw;
 
+import com.github.bhlangonijr.chesslib.game.Game;
 import com.github.bhlangonijr.chesslib.move.MoveConversionException;
+import kotlin.Pair;
+import kotlinx.serialization.internal.MapEntry;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
