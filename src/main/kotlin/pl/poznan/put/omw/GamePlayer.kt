@@ -60,14 +60,14 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                             }
 
                             if (responseType == ResultType.BestMove || responseType == ResultType.Move) {
-                                logger.debug("received response message for move $moveCounter: $it")
+                                logger.info("received response message for move $moveCounter: $it")
                             }
 
 
                             //when the current response
                             // is bestmove then close the connection
                             if (responseType == ResultType.BestMove) {
-                                logger.debug("closing move response for move $moveCounter: $nextFen")
+                                logger.info("closing move response for move $moveCounter: $nextFen")
                                 cancellation()
                                 continuation.resumeWith(Result.success(true))
                             }
