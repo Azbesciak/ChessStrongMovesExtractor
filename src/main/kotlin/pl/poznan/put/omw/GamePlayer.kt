@@ -24,6 +24,8 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
         val chess = ObservableChessGame()
         var moveCounter = 0
         val result = ArrayList<EngineResult>()
+        var isWhitePlayerMove = true // assuming that WHITE starts
+        var lastBestmoveIndex = -1
 
         chess.addObserver { o, arg ->
             if (arg != ObservableChessGame.ACTION_NEW_MOVE) return@addObserver
@@ -36,7 +38,6 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
             runBlocking {
                 suspendCoroutine<Boolean> { continuation ->
                     var counter = 0
-                    var lastBestmoveIndex = -1
                     launch {
                         logger.debug("sending move $pan in FEN: $nextFen")
                         lateinit var cancellation: Cancellation
@@ -51,8 +52,10 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                                 }
                                 ResultType.BestMove -> {
                                     result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter, isBestMove = true))
-                                    assignCPToBestmove(result, lastBestmoveIndex)
+                                    assignCPAndSecondBestmoveToBestmove(result, lastBestmoveIndex, isWhitePlayerMove)
                                     lastBestmoveIndex = result.size - 1
+                                    // player changes
+                                    isWhitePlayerMove = !isWhitePlayerMove
                                 }
                             }
 
@@ -103,18 +106,49 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                 it.fen
             }
 
-    private fun assignCPToBestmove(result: List<EngineResult>, lastBest: Int) {
+    /**
+     * Assuming that bestmove comes as the last one so we have all moves with the same ID (comming from the same FEN)
+     * already in the result list. By keeping lastBest value we are iterating only within results with the same id.
+     */
+    private fun assignCPAndSecondBestmoveToBestmove(result: List<EngineResult>, lastBest: Int, isWhitePlayerMove: Boolean) {
         // assign cp to bestmoves - engine doesn't return cp to bestmove
-        val i = result.size - 1 // bestmove position
+        val bestmoveIndex = result.size - 1 // bestmove position
+        val values = arrayListOf<Pair<Int, Int>>() // keeps cp of all results and their indices
         // result with bestmove as the first move should be before bestmove in the result list
         for (j in result.size - 2 downTo lastBest + 1) {
-            if (result[j].getMove() == result[i].getMove()) {
+            if (result[j].getMove() == result[bestmoveIndex].getMove() && result[bestmoveIndex].depth < 0) {
                 // result with the same move as bestmove is found
                 // assign cp to bestmove
-                result[i].centipaws = result[j].centipaws
-                result[i].depth = result[j].depth
-                break
+                result[bestmoveIndex].centipaws = result[j].centipaws
+                result[bestmoveIndex].depth = result[j].depth
+            } else {
+                // add only those results that are not the best move
+                values.add(Pair(result[j].centipaws, j))
             }
+
         }
+
+        if(values.size == 0)
+        {
+            // there was only one response from the server
+            result[bestmoveIndex].secondBestIndex = -2
+        }
+        else
+        {
+            if(isWhitePlayerMove)
+            {
+                // sort by cp - the highest cp the best
+                values.sortByDescending { it.first }
+            }
+            else
+            {
+                // black's move - the lowest cp the best
+                values.sortBy { it.first }
+            }
+
+            // assign id of the second best to the bestmove
+            result[bestmoveIndex].secondBestIndex = values[0].second
+        }
+
     }
 }

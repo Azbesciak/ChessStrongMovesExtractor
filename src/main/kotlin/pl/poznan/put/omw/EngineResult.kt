@@ -13,7 +13,8 @@ class EngineResult(val fen: String, private val movePlayedInGame: String, val re
 {
     var depth: Int = -1
     val moves: List<String>
-    var centipaws: Int = 0
+    var centipaws: Int = Int.MIN_VALUE // probably any move should get MIN_VALUE
+    var secondBestIndex: Int = -1
 
     init {
         result.split(' ').let {
