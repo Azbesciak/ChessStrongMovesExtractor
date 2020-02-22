@@ -58,16 +58,13 @@ fun main(args: Array<String>) = ProgramExecutor {
                     }
                     gameConnection.close()
                     val resultsFilter = GameFilter(result, filters)
-                    val interestingMoves = resultsFilter.filterInterestingMoves(engineDepth)
+                    val interestingMoves = resultsFilter.filterInterestingMoves(engineDepth, centipawns)
 
-//                    val GameMoveList = PgnToStockfish.getSanList(game)
-                    val UclMoveList = PgnToStockfish.getStockfishFormat(game)
-                    val groupedGameVariationList = OutputPosition.createGameVariationList(interestingMoves
-                            as ArrayList<EngineResult>?, UclMoveList);
-                    val finalGameVariationList = OutputPosition.setBestAndFlatten(groupedGameVariationList)
-                    val outputPosition = OutputPosition(result.last().fen, finalGameVariationList)
-                    val header = ProgramHelpers.formatHeader(headerTypes, game)
-                    Saver.save(outputPath, header, result.last().fen, finalGameVariationList)
+//                    val groupedGameVariationList = OutputPosition.createGameVariationList(interestingMoves)
+//                    val finalGameVariationList = OutputPosition.setBestAndFlatten(groupedGameVariationList)
+//                    val outputPosition = OutputPosition(result.last().fen, finalGameVariationList)
+//                    val header = ProgramHelpers.formatHeader(headerTypes, game)
+//                    Saver.save(outputPath, header, result.last().fen, finalGameVariationList)
                     logger.logger.debug("GAME $i CLOSING!")
                 }
                 logger.logger.info("Processing finished")

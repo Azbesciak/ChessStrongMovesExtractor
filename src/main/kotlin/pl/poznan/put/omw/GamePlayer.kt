@@ -36,6 +36,7 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
             runBlocking {
                 suspendCoroutine<Boolean> { continuation ->
                     var counter = 0
+                    var lastBestmoveIndex = -1
                     launch {
                         logger.debug("sending move $pan in FEN: $nextFen")
                         lateinit var cancellation: Cancellation
@@ -44,16 +45,18 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                             val responseDepth = EngineResult.getResponseDepth(it)
 
                             when (responseType) {
-                                ResultType.Move ->
-                                {
-                                    if(responseDepth == maxDepth)
+                                ResultType.Move -> {
+                                    if (responseDepth == maxDepth)
                                         result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter))
                                 }
-                                ResultType.BestMove -> result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter, isBestMove = true))
+                                ResultType.BestMove -> {
+                                    result.add(EngineResult(nextFen, movePlayedInGame, it, moveCounter, isBestMove = true))
+                                    assignCPToBestmove(result, lastBestmoveIndex)
+                                    lastBestmoveIndex = result.size - 1
+                                }
                             }
 
-                            if(responseType == ResultType.BestMove || responseType == ResultType.Move)
-                            {
+                            if (responseType == ResultType.BestMove || responseType == ResultType.Move) {
                                 logger.debug("received response message for move $moveCounter: $it")
                             }
 
@@ -87,8 +90,7 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
                 val moves = MoveList()
                 try {
                     moves.loadFromSan(pan)
-                } catch(e: MoveConversionException)
-                {
+                } catch (e: MoveConversionException) {
                     return null
                 }
 
@@ -100,4 +102,19 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
 
                 it.fen
             }
+
+    private fun assignCPToBestmove(result: List<EngineResult>, lastBest: Int) {
+        // assign cp to bestmoves - engine doesn't return cp to bestmove
+        val i = result.size - 1 // bestmove position
+        // result with bestmove as the first move should be before bestmove in the result list
+        for (j in result.size - 2 downTo lastBest + 1) {
+            if (result[j].getMove() == result[i].getMove()) {
+                // result with the same move as bestmove is found
+                // assign cp to bestmove
+                result[i].centipaws = result[j].centipaws
+                result[i].depth = result[j].depth
+                break
+            }
+        }
+    }
 }
