@@ -78,7 +78,9 @@ class GamePlayer(private val game: PGNGame, private val gameConnection: GameConn
         return result
     }
 
-    // translate from pan to FEN
+    /**
+     * Create FEN based on moves in pan.
+     */
     private fun getFenFromMoves(pan: String) =
             Board().let {
                 val moves = MoveList()

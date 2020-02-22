@@ -11,6 +11,7 @@ class EngineResult(val fen: String, val result: String, val moveID: Int, val isB
     init {
         result.split(' ').let {
             if (isBestMove) {
+
                 depth = -1
                 centipaws = -1
                 moves = it.subList(1, 2)
@@ -34,7 +35,15 @@ class EngineResult(val fen: String, val result: String, val moveID: Int, val isB
         }
     }
 
+    /**
+     * Returns the first move in LAN format (returned by UCI) based on the specified fen.
+     */
     fun getMove() = moves[0]
+
+    /**
+     * Returns the first move in SAN format based on the specified fen.
+     */
+    fun getSANMove() = ChessLibUtils.getMoveToSAN(fen, getMove())
 
     companion object {
         fun getReponseType(response: String) : ResultType {

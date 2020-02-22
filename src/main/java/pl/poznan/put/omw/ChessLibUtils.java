@@ -22,14 +22,14 @@ public class ChessLibUtils {
         // działa, format SAN/PAN standardowa notacja szachowa
         String san = "Nc3"; // "g5"
         Move moveFromSAN = getMoveFromSAN(san);
-        System.out.println(getMoveToSAN(moveFromSAN));
+        System.out.println(getMoveToSAN(fen, moveFromSAN));
         System.out.println(getMoveToUCI(moveFromSAN));
 
 
         // dziala, format skad-dokad, format od stockfisha/serwera uci
         String uci = "d2d4";
         Move moveFromUCI = getMoveFromUCI(board, uci);
-        System.out.println(getMoveToSAN(moveFromUCI));
+        System.out.println(getMoveToSAN(fen, moveFromUCI));
         System.out.println(getMoveToUCI(moveFromUCI));
 
 
@@ -41,10 +41,10 @@ public class ChessLibUtils {
         // System.out.println(getMoveToSAN(moveFromUCI2)) will throw an exception,
         // because toSanArray() in getMoveToSAN uses default
         // board, so it assumes that uci2 is the first move, it doesn't take into account fen2
-//        System.out.println(getMoveToSAN(moveFromUCI2));
+        System.out.println(getMoveToSAN(fen2, moveFromUCI2));
 //        System.out.println(getMoveToUCI(moveFromUCI2));
         // proper conversion
-        System.out.println(getSANFromUCI(fen2, uci2));
+        System.out.println(getMoveToSAN(fen2, uci2));
         System.out.println(getMoveToUCI(moveFromUCI2));
 
         System.out.println(isMoveACapture(board, moveFromSAN));
@@ -246,8 +246,8 @@ public class ChessLibUtils {
      * @return move in san notation like in example Nf1
      * @throws MoveConversionException
      */
-    public static String getMoveToSAN(Move move) throws MoveConversionException {
-        MoveList sanList = new MoveList();
+    public static String getMoveToSAN(String fen, Move move) throws MoveConversionException {
+        MoveList sanList = new MoveList(fen);
         sanList.add(move);
         String[] sanRepresentation = sanList.toSanArray();
         return sanRepresentation[0];
@@ -263,18 +263,17 @@ public class ChessLibUtils {
     }
 
     /**
-     * Converts move in UCI notation to SAN notation
-     * @param FEN FEN board notation
-     * @param uciMove move in UCI notation like in example c1c2
-     * @return move in san notation like in example Kc2
+     * Overloaded version of getMoveToSAN allowing passing uci move as a String instead of a Move.
+     * Converts move in UCI notation to SAN notation.
+     * @param fen FEN board notation
+     * @param uciMove move in UCI notation for the specified fen
+     * @return move in san notation
      * @throws MoveConversionException
      */
-    public static String getSANFromUCI(String FEN, String uciMove) throws MoveConversionException {
+    public static String getMoveToSAN(String fen, String uciMove) throws MoveConversionException {
         Board b = new Board();
-        b.loadFromFen(FEN);
-        MoveList sanList = new MoveList(FEN);
-        sanList.add(getMoveFromUCI(b, uciMove));
-        String[] sanRepresentation = sanList.toSanArray();
-        return sanRepresentation[0];
+        b.loadFromFen(fen);
+        Move a = getMoveFromUCI(b, uciMove);
+        return getMoveToSAN(fen, a);
     }
 }
