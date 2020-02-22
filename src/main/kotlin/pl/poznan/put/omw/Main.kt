@@ -6,9 +6,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import mu.KLogging
 import okhttp3.OkHttpClient
-import pl.poznan.put.omw.filters.MoveFilter
-import pl.poznan.put.omw.filters.NotRecaptureMoveFilter
-import pl.poznan.put.omw.filters.NotSimpleDefendFilter
+import pl.poznan.put.omw.filters.*
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
@@ -21,8 +19,9 @@ fun main(args: Array<String>) = ProgramExecutor {
     val json = Json(JsonConfiguration.Stable)
     val uciServerConfig = readServerConfig(json)
     val filters = arrayListOf<MoveFilter>(
-           // NotMinorCaptureMoveFilter(),
+            NotMinorCaptureMoveFilter(),
             NotRecaptureMoveFilter(),
+            NotCaptureWithBestValueMoveFilter(),
             NotSimpleDefendFilter()
     )
     println(uciServerConfig)
