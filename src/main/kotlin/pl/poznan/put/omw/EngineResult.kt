@@ -15,11 +15,21 @@ class EngineResult(val fen: String, val result: String, val moveID: Int, val isB
                 centipaws = -1
                 moves = it.subList(1, 2)
             } else {
-                if (it.size < 19)
+                fun getIntFromArr(arr: List<String>, key: String): Int
+                {
+                    val keyIndex = it.indexOf(key)
+                    if(keyIndex < 0)
+                        throw RuntimeException("Wrong response from the server")
+                    return it[keyIndex+1].toInt()
+                }
+
+                val movesPosition = it.indexOf("pv")
+                if(movesPosition < 0)
                     throw RuntimeException("Wrong response from the server")
-                moves = it.subList(19, it.size)
-                centipaws = it[9].toInt()
-                depth = it[2].toInt()
+                moves = it.subList(movesPosition+1, it.size)
+
+                centipaws = getIntFromArr(it, "cp")
+                depth = getIntFromArr(it, "depth")
             }
         }
     }
