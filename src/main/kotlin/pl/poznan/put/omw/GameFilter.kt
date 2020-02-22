@@ -12,8 +12,11 @@ class GameFilter(private val engineResult: List<EngineResult>,
         }
     }
 
-    fun filterInterestingMoves(depth: Int, minCPBetweenBest: Int): List<EngineResult> {
-        val interestingMoves = arrayListOf<EngineResult>()
+    /**
+     * Returns a list of bestmoves that match all filters with other results from the engine with the same moveID as bestmove.
+     */
+    fun filterInterestingMoves(depth: Int, minCPBetweenBest: Int): List<Pair<EngineResult, List<EngineResult>>> {
+        val interestingMoves = arrayListOf<Pair<EngineResult, List<EngineResult>>>()
 
         engineResult
                 .filter { it.isBestMove && depth == it.depth }
@@ -29,8 +32,22 @@ class GameFilter(private val engineResult: List<EngineResult>,
                             for (filter in filters) {
                                 matchesAllFilters = matchesAllFilters && filter.match(bestMove.fen, bestMove.getMove())
                             }
+
                             if(matchesAllFilters)
-                                interestingMoves.add(bestMove)
+                            {
+                                val worstThenBestmoveResults = engineResult
+                                        .filter { it.moveID == bestMove.moveID &&  it.getMove() != bestMove.getMove()}
+                                // sort them by cp depending on the player's color
+                                if(bestMove.isWhitePlayerPlaying)
+                                {
+                                    worstThenBestmoveResults.sortedByDescending { it.centipaws }
+                                }
+                                else
+                                {
+                                    worstThenBestmoveResults.sortedBy { it.centipaws }
+                                }
+                                interestingMoves.add(Pair(bestMove, worstThenBestmoveResults))
+                            }
                         }
                     }
                 }

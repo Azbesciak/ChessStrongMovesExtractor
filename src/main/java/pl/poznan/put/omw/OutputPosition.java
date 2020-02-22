@@ -13,39 +13,26 @@ public class OutputPosition {
 
     String FEN;
     List<GameVariation> gameVariations;
+    GameVariation bestmove;
 
     public OutputPosition(String FEN, List<GameVariation> gameVariations) {
         this.FEN = FEN;
         this.gameVariations = gameVariations;
+        this.bestmove = gameVariations.get(0);
     }
 
     @Override
     public String toString() {
-        GameVariation bestMove = gameVariations.get(0);
         return "[FEN \"" + FEN + "\"]" + "\n" +
                 gameVariations.stream().map(gameVariation -> gameVariation.toString()).collect(Collectors.joining(" "));
     }
 
-    public static Map<Integer, List<GameVariation>> createGameVariationList(ArrayList<EngineResult> results, ArrayList<String> sanList) throws MoveConversionException {
-        ArrayList<GameVariation> variations = new ArrayList<>();
-        for (EngineResult eResult : results) {
-            GameVariation v = new GameVariation(eResult.getMoves().get(0), eResult.getMoveID(), eResult.getCentipaws(),
-                    eResult.getFen(), sanList);
-            variations.add(v);
-        }
-        Map<Integer, List<GameVariation>> groupedVariations = variations.stream()
-                .collect(groupingBy(GameVariation::getIndex));
-        return groupedVariations;
-    }
-
-    public static ArrayList<GameVariation> setBestAndFlatten(Map<Integer, List<GameVariation>> results) {
-        ArrayList<GameVariation> output = new ArrayList<>();
-        for (List<GameVariation> nRes : results.values()) {
-            nRes.get(0).setBestMove(true);
-            for (GameVariation g : nRes) {
-                output.add(g);
-            }
-        }
-        return output;
+    public static List<OutputPosition> createOutputPositions(Map<Integer, List<GameVariation>> grouppedGameVariations) {
+        return grouppedGameVariations
+                .values()
+                .stream()
+                .filter(x -> x.size() > 0)
+                .map(x -> new OutputPosition(x.get(0).fen, x))
+                .collect(Collectors.toList());
     }
 }

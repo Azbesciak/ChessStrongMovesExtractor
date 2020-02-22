@@ -39,9 +39,8 @@ fun main(args: Array<String>) = ProgramExecutor {
                     val resultsFilter = GameFilter(result, filters)
                     val interestingMoves = resultsFilter.filterInterestingMoves(engineDepth, centipawns)
 
-//                    val groupedGameVariationList = OutputPosition.createGameVariationList(interestingMoves)
-//                    val finalGameVariationList = OutputPosition.setBestAndFlatten(groupedGameVariationList)
-//                    val outputPosition = OutputPosition(result.last().fen, finalGameVariationList)
+                    val finalGameVariationList = GameVariation.createGameVariationList(interestingMoves)
+                    val outputPosition = OutputPosition.createOutputPositions(finalGameVariationList)
 //                    val header = ProgramHelpers.formatHeader(headerTypes, game)
 //                    Saver.save(outputPath, header, result.last().fen, finalGameVariationList)
                     logger.logger.debug("GAME $i CLOSING!")

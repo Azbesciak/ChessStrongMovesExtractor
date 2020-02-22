@@ -1,8 +1,12 @@
 package pl.poznan.put.omw;
 
 import com.github.bhlangonijr.chesslib.move.MoveConversionException;
+import kotlin.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GameVariation {
     String sanMoveRepresentation;
@@ -14,6 +18,7 @@ public class GameVariation {
     }
 
     boolean isBestMove;
+    String fen;
 
     public int getIndex() {
         return index;
@@ -22,25 +27,24 @@ public class GameVariation {
     int index;
     int centipawns;
 
-    public GameVariation(String sanMoveRepresentation, boolean wasPlayed, boolean isBestMove, int index, int centipawns) {
+    public GameVariation(EngineResult result)
+    {
+            this(result.getSANMove(),
+                    result.wasPlayedInGame(),
+                    result.isBestMove(),
+                    result.getMoveID(),
+                    result.getCentipaws(),
+                    result.getFen());
+    }
+
+    public GameVariation(String sanMoveRepresentation, boolean wasPlayed, boolean isBestMove, int index, int centipawns, String fen) {
         this.sanMoveRepresentation = sanMoveRepresentation;
 
         this.wasPlayed = wasPlayed;
         this.isBestMove = isBestMove;
         this.index = index;
         this.centipawns = centipawns;
-    }
-
-    public GameVariation(String uciMove, int id, int centipawns, String fen, ArrayList<String> sanList) throws MoveConversionException {
-        this.uclMoveRepresentation = uciMove;
-        this.sanMoveRepresentation = uciMove;
-        this.index = id;
-        this.centipawns = centipawns;
-        if (sanList.get(id) == this.uclMoveRepresentation) {
-            this.wasPlayed = true;
-        } else {
-            this.wasPlayed = false;
-        }
+        this.fen = fen;
     }
 
     @Override
@@ -60,5 +64,19 @@ public class GameVariation {
 
     private String getWasPlayedString() {
         return wasPlayed ? "{G}" : "";
+    }
+
+    public static Map<Integer, List<GameVariation>> createGameVariationList(List<Pair<EngineResult, List<EngineResult>>> results) throws MoveConversionException {
+        HashMap<Integer, List<GameVariation>> grouppedMap = new HashMap<>();
+        for (Pair<EngineResult, List<EngineResult>> bestResultWithVariants : results) {
+            ArrayList<GameVariation> variations = new ArrayList<>();
+            // add bestmove as the first variation
+            variations.add(new GameVariation(bestResultWithVariants.getFirst()));
+            for (EngineResult eResult : bestResultWithVariants.getSecond()) {
+                variations.add(new GameVariation(eResult));
+            }
+            grouppedMap.put(bestResultWithVariants.getFirst().getMoveID(), variations);
+        }
+        return grouppedMap;
     }
 }

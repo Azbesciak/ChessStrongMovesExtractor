@@ -56,13 +56,13 @@ public class ChessLibUtils {
         System.out.println(getBlackMaterialSum(board));
         System.out.println(board.getFen());
 
-        List<GameVariation> variations = Arrays.asList(
-                new GameVariation("g4", false, true, 46, 29900),
-                new GameVariation("Qxa7", true, false, 46, 0),
-                new GameVariation("c4", false, false, 46, -51)
-        );
-        OutputPosition outputPosition = new OutputPosition("8/p5Q1/2ppq2p/3n1ppk/3B4/2P2P1P/P5P1/6K1 w - - 3 46", variations);
-        System.out.println(outputPosition.toString());
+//        List<GameVariation> variations = Arrays.asList(
+//                new GameVariation("g4", false, true, 46, 29900),
+//                new GameVariation("Qxa7", true, false, 46, 0),
+//                new GameVariation("c4", false, false, 46, -51)
+//        );
+//        OutputPosition outputPosition = new OutputPosition("8/p5Q1/2ppq2p/3n1ppk/3B4/2P2P1P/P5P1/6K1 w - - 3 46", variations);
+//        System.out.println(outputPosition.toString());
     }
 
     /**
